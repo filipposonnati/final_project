@@ -17,4 +17,12 @@ class MainController extends AbstractController
             'controller_name' => 'MainController',
         ]);
     }
+
+    /**
+     * @Route("/white", name="white")
+     */
+    public function white(): Response
+    {
+        return $this->render('main/white.html.twig');
+    }
 }
