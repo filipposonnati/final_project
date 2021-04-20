@@ -14,7 +14,7 @@
 	{% endif %}
 
 	{% if app.user %}
-		<div class="container my-5">
+		<div class="container">
 			<div class="row justify-content-center">
 				<img class="mb-4" src="{{ asset("/icon/person-fill.svg") }}" alt="Not found" width="72" height="72">
 			</div>
@@ -22,12 +22,6 @@
 			<div class="row justify-content-center">
 				<h1 class="h3 mb-3 font-weight-normal">You are logged in as
 					{{ app.user.username }}
-				</h1>
-			</div>
-
-			<div class="row justify-content-center">
-				<h1>
-					<a href="{{ path('app_logout') }}">Logout</a>
 				</h1>
 			</div>
 		</div>
