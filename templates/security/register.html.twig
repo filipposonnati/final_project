@@ -24,18 +24,10 @@
 
 	<h1 class="h3 mb-3 font-weight-normal">Please sign up</h1>
 
-	{{ form_label(registrationForm.username, null, {
-        'label_attr': {
-            'for': 'inputUsername',
-            'class': 'sr-only'
-            }
-        }) }}
-
 	{{ form_widget(registrationForm.username, {
         'attr': {
             'type': 'text',
             'name': 'username',
-            'id': 'inputUsername',
             'class': 'form-control',
             'placeholder': 'Username'
         }
@@ -47,20 +39,21 @@
 		{{ form_errors(registrationForm.username) }}
 	</div>
 
-	{{ form_label(registrationForm.plainPassword, null, {
-        'label_attr': {
-            'for': 'inputUsername',
-            'class': 'sr-only'
-            }
-        }) }}
-
-	{{ form_widget(registrationForm.plainPassword, {
+	{{ form_widget(registrationForm.plainPassword.first, {
         'attr': {
             'type': 'password',
             'name': 'password',
-            'id': 'inputPassword',
             'class': 'form-control',
             'placeholder': 'Password'
+        }
+    }) }}
+
+	{{ form_widget(registrationForm.plainPassword.second, {
+        'attr': {
+            'type': 'password',
+            'name': 'password',
+            'class': 'form-control',
+            'placeholder': 'Repeat Password'
         }
     }) }}
 

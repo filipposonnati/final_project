@@ -41,7 +41,21 @@ body {
 }
 
 .form-signin input[type="password"] {
-    margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+    margin-top: -1px;
+}
+
+.form-signin input[id="inputPassword"] {
+    margin-bottom: 10px;
+}
+
+.form-signin input[id="registration_form_plainPassword_first"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-signin input[id="registration_form_plainPassword_second"] {
+    margin-bottom: 10px;
 }
