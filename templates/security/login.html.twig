@@ -14,24 +14,39 @@
 	{% endif %}
 
 	{% if app.user %}
-		<div class="mb-3">
-			You are logged in as
-			{{ app.user.username }},
-			<a href="{{ path('app_logout') }}">Logout</a>
+		<div class="container my-5">
+			<div class="row justify-content-center">
+				<img class="mb-4" src="{{ asset("/icon/person-fill.svg") }}" alt="Not found" width="72" height="72">
+			</div>
+
+			<div class="row justify-content-center">
+				<h1 class="h3 mb-3 font-weight-normal">You are logged in as
+					{{ app.user.username }}
+				</h1>
+			</div>
+
+			<div class="row justify-content-center">
+				<h1>
+					<a href="{{ path('app_logout') }}">Logout</a>
+				</h1>
+			</div>
 		</div>
 	{% endif %}
 
-	<form class="form-signin" method="post">
+	{% if app.user == false %}
+		<form class="form-signin" method="post">
 
-		<img class="mb-4" src="{{ asset("/icon/person-fill.svg") }}" alt="Not found" width="72" height="72">
+			<img class="mb-4" src="{{ asset("/icon/person-fill.svg") }}" alt="Not found" width="72" height="72">
 
-		<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+			<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 
-		<input type="text" name="username" id="inputUsername" class="form-control" placeholder="Username" required>
-		<input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+			<input type="text" name="username" id="inputUsername" class="form-control" placeholder="Username" required>
+			<input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
 
-		<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-		<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-	</form>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+		</form>
+	{% endif %}
+
 {% endblock %}
