@@ -28,7 +28,6 @@ security:
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
-
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
 
@@ -37,3 +36,5 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
