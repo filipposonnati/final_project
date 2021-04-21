@@ -39,6 +39,14 @@
 						<a class="p-2 text-dark" href="{{ path('') }}">Home</a>
 					{% endif %}
 
+					{% if is_granted('ROLE_USER') and (app.request.pathinfo != '/user') %}
+						<a class="p-2 text-dark" href="{{ path('app_user') }}">User</a>
+					{% endif %}
+
+					{% if is_granted('ROLE_ADMIN') and (app.request.pathinfo != '/admin') %}
+						<a class="p-2 text-dark" href="{{ path('app_admin') }}">Admin</a>
+					{% endif %}
+
 					{% if (app.user == false) and (app.request.pathinfo != '/login') %}
 						<a class="btn btn-outline-primary" href="{{ path('app_login') }}">Sign in</a>
 					{% endif %}
