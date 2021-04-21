@@ -59,3 +59,8 @@ body {
 .form-signin input[id="registration_form_plainPassword_second"] {
     margin-bottom: 10px;
 }
+
+#already_logged {
+    margin-top: 120px;
+    margin-bottom: 120px;
+}

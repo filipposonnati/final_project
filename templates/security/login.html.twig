@@ -8,13 +8,12 @@
 {% endblock %}
 
 {% block body %}
-
 	{% if error %}
 		<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 	{% endif %}
 
 	{% if app.user %}
-		<div class="container">
+		<div id="already_logged" class="container">
 			<div class="row justify-content-center">
 				<img class="mb-4" src="{{ asset("/icon/person-fill.svg") }}" alt="Not found" width="72" height="72">
 			</div>
@@ -42,5 +41,4 @@
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 		</form>
 	{% endif %}
-
 {% endblock %}
