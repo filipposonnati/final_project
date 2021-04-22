@@ -47,16 +47,10 @@
 			}
 		}) }}
 
-		<small>{{ form_help(registrationForm.username) }}</small>
-
-		<div class="form-error">
-			{{ form_errors(registrationForm.username) }}
-		</div>
-
 		{{ form_widget(registrationForm.plainPassword.first, {
 			'attr': {
 				'type': 'password',
-				'name': 'password',
+				'name': 'Password',
 				'class': 'form-control',
 				'placeholder': 'Password'
 			}
@@ -65,16 +59,28 @@
 		{{ form_widget(registrationForm.plainPassword.second, {
 			'attr': {
 				'type': 'password',
-				'name': 'password',
+				'name': 'Repeat Password',
 				'class': 'form-control',
 				'placeholder': 'Repeat Password'
 			}
 		}) }}
 
-		<small>{{ form_help(registrationForm.plainPassword) }}</small>
+		<small>{{ form_help(registrationForm.username) }}</small>
 
 		<div class="form-error">
-			{{ form_errors(registrationForm.plainPassword) }}
+			{{ form_errors(registrationForm.username) }}
+		</div>
+
+		<small>{{ form_help(registrationForm.plainPassword.first) }}</small>
+
+		<div class="form-error">
+			{{ form_errors(registrationForm.plainPassword.first) }}
+		</div>
+
+		<small>{{ form_help(registrationForm.plainPassword.second) }}</small>
+
+		<div class="form-error">
+			{{ form_errors(registrationForm.plainPassword.second) }}
 		</div>
 
 		{{ form_rest(registrationForm) }}
