@@ -1,140 +1,137 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
 
-		<title>The Cryptography's Wiki</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
-		<style>
-			.bd-placeholder-img {
-				font-size: 1.125rem;
-				text-anchor: middle;
-				-webkit-user-select: none;
-				-moz-user-select: none;
-				-ms-user-select: none;
-				user-select: none;
-			}
+    <title>The Cryptography's Wiki</title>
 
-			@media(min-width: 768px) {
-				.bd-placeholder-img-lg {
-					font-size: 3.5rem;
-				}
-			}
-			#footer {
-				max-width: 960px;
-			}
-		</style>
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
 
-		<link rel="stylesheet" href="{{ asset("/css/main.css") }}">
-		
-		{% block style %}{% endblock %}
-		</head>
-		<body>
-			<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-				<h5 class="my-0 mr-md-auto font-weight-normal">The Cryptography's Wiki</h5>
+    {% block style %}{% endblock %}
+  </head>
+  <body>
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm sticky-top">
+      <h5 class="my-0 mr-md-auto font-weight-normal">The Cryptography's Wiki</h5>
 
-				<nav class="my-2 my-md-0 mr-md-3">
-					{% if app.request.pathinfo != '/' %}
-						<a class="p-2 text-dark" href="{{ path('') }}">Home</a>
-					{% endif %}
+      <nav class="my-2 my-md-0 mr-md-3">
+        {% if app.request.pathinfo != '/' %}
+          <a class="p-2 text-dark" href="{{ path('') }}">Home</a>
+        {% endif %}
 
-					{% if is_granted('ROLE_USER') and (app.request.pathinfo != '/user') %}
-						<a class="p-2 text-dark" href="{{ path('app_user') }}">User</a>
-					{% endif %}
+        {% if is_granted('ROLE_USER') and (app.request.pathinfo != '/user') %}
+          <a class="p-2 text-dark" href="{{ path('user') }}">User</a>
+        {% endif %}
 
-					{% if is_granted('ROLE_ADMIN') and (app.request.pathinfo != '/admin') %}
-						<a class="p-2 text-dark" href="{{ path('app_admin') }}">Admin</a>
-					{% endif %}
+        {% if is_granted('ROLE_ADMIN') and (app.request.pathinfo != '/admin') %}
+          <a class="p-2 text-dark" href="{{ path('admin') }}">Admin</a>
+        {% endif %}
 
-					{% if (app.user == false) and (app.request.pathinfo != '/login') %}
-						<a class="btn btn-outline-primary" href="{{ path('app_login') }}">Sign in</a>
-					{% endif %}
-					{% if (app.user == false) and (app.request.pathinfo != '/register') %}
-						<a class="btn btn-outline-dark" href="{{ path('app_register') }}">Sign up</a>
-					{% endif %}
+        {% if (app.user == false) and (app.request.pathinfo != '/login') %}
+          <a class="btn btn-outline-primary" href="{{ path('app_login') }}">Sign in</a>
+        {% endif %}
+        {% if (app.user == false) and (app.request.pathinfo != '/register') %}
+          <a class="btn btn-outline-dark" href="{{ path('app_register') }}">Sign up</a>
+        {% endif %}
 
-					{% if app.user %}
-						<a class="btn btn-outline-dark" href="{{ path('app_logout') }}">Logout</a>
-					{% endif %}
-				</nav>
-			</div>
+        {% if app.user %}
+          <a class="btn btn-outline-dark" href="{{ path('app_logout') }}">Logout</a>
+        {% endif %}
+      </nav>
+    </div>
 
-			{% block body %}{% endblock %}
+    {% block body %}{% endblock %}
 
-			<div id="footer" class="container">
-				<footer class="pt-4 my-md-5 pt-md-5 border-top">
-					<div class="row">
-						<div class="col-6 col-md">
-							<img class="mb-2" src="{{ asset("/icon/dice-4-fill.svg") }}" alt="Not found" width="24" height="24">
+    <div id="footer" class="container">
+      <footer class="pt-4 my-md-5 pt-md-5 border-top">
+        <div class="row">
+          <div class="col-6 col-md">
+            <img class="mb-2" src="{{ asset('icon/dice-4-fill.svg') }}" alt="Not found" width="24" height="24">
 
-							<small class="d-block mb-3 text-muted">&copy; 2017-2021</small>
-						</div>
-						<div class="col-6 col-md">
-							<h5>Features</h5>
-							<ul class="list-unstyled text-small">
-								<li>
-									<a class="text-muted" href="#">Cool stuff</a>
-								</li>
-								<li>
-									<a class="text-muted" href="#">Random feature</a>
-								</li>
-								<li>
-									<a class="text-muted" href="#">Team feature</a>
-								</li>
-								<li>
-									<a class="text-muted" href="#">Stuff for developers</a>
-								</li>
-								<li>
-									<a class="text-muted" href="#">Another one</a>
-								</li>
-								<li>
-									<a class="text-muted" href="#">Last time</a>
-								</li>
-							</ul>
-						</div>
-						<div class="col-6 col-md">
-							<h5>Resources</h5>
-							<ul class="list-unstyled text-small">
-								<li>
-									<a class="text-muted" href="#">Resource</a>
-								</li>
-								<li>
-									<a class="text-muted" href="#">Resource name</a>
-								</li>
-								<li>
-									<a class="text-muted" href="#">Another resource</a>
-								</li>
-								<li>
-									<a class="text-muted" href="#">Final resource</a>
-								</li>
-							</ul>
-						</div>
-						<div class="col-6 col-md">
-							<h5>About</h5>
-							<ul class="list-unstyled text-small">
-								<li>
-									<a class="text-muted" href="#">Team</a>
-								</li>
-								<li>
-									<a class="text-muted" href="#">Locations</a>
-								</li>
-								<li>
-									<a class="text-muted" href="#">Privacy</a>
-								</li>
-								<li>
-									<a class="text-muted" href="#">Terms</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</footer>
-			</div>
-
-			<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-			<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-			<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
-		</body>
-	</html>
+            <small class="d-block mb-3 text-muted">&copy; 2021</small>
+          </div>
+          <div class="col-6 col-md">
+            <h5>Features</h5>
+            <ul class="list-unstyled text-small">
+              <li>
+                <a class="text-muted" href="#">Cool stuff</a>
+              </li>
+              <li>
+                <a class="text-muted" href="#">Random feature</a>
+              </li>
+              <li>
+                <a class="text-muted" href="#">Team feature</a>
+              </li>
+              <li>
+                <a class="text-muted" href="#">Stuff for developers</a>
+              </li>
+              <li>
+                <a class="text-muted" href="#">Another one</a>
+              </li>
+              <li>
+                <a class="text-muted" href="#">Last time</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-6 col-md">
+            <h5>Resources</h5>
+            <ul class="list-unstyled text-small">
+              <li>
+                <a class="text-muted" href="#">Resource</a>
+              </li>
+              <li>
+                <a class="text-muted" href="#">Resource name</a>
+              </li>
+              <li>
+                <a class="text-muted" href="#">Another resource</a>
+              </li>
+              <li>
+                <a class="text-muted" href="#">Final resource</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-6 col-md">
+            <h5>About</h5>
+            <ul class="list-unstyled text-small">
+              <li>
+                <a class="text-muted" href="#">Team</a>
+              </li>
+              <li>
+                <a class="text-muted" href="#">Locations</a>
+              </li>
+              <li>
+                <a class="text-muted" href="#">Privacy</a>
+              </li>
+              <li>
+                <a class="text-muted" href="#">Terms</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+  </body>
+</html>

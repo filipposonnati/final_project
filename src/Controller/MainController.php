@@ -8,6 +8,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+use App\Entity\Page; 
+
 class MainController extends AbstractController
 {
     /**
@@ -19,7 +21,7 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route("/user", name="app_user")
+     * @Route("/user", name="user")
      * @IsGranted("ROLE_USER")
      */
     public function user(): Response
@@ -28,11 +30,24 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route("/admin", name="app_admin")
+     * @Route("/admin", name="admin")
      * @IsGranted("ROLE_ADMIN")
      */
     public function admin(): Response
     {
         return $this->render('main/admin.html.twig');
+    }
+
+    /**
+     * @Route("/wiki/{title}", name="page")
+     * @IsGranted("ROLE_USER")
+     */
+    public function page(string $title): Response
+    {
+        $page = $this->getDoctrine()->getRepository(Page::class)->findOneBy(['title' => $title]);
+
+        return $this->render('main/page.html.twig', [
+            'page' => $page
+        ]);
     }
 }
