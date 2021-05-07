@@ -8,7 +8,7 @@
 		<div class="container mx-auto">
 			<div class="row m-3">
 				<div class="col">
-					<div class="card">
+					<div class="card border shadow-sm">
 						<div class="card-body">
 							<h5 class="card-title">{{ page.title }}</h5>
 							<p class="card-text">{{ page.introduction }}</p>
@@ -19,9 +19,9 @@
 			<div class="row m-3">
 				<div class="col-lg-6 col-md-6 col-12">
 					{% for comment in comments %}
-						<div class="row">
+						<div class="row justify-content-between">
 							<div class="col mr-auto my-1">
-								<div class="card border-primary shadow">
+								<div class="card border-primary w-auto">
 									<div class="card-body text-primary">
 										<h5 class="card-title">{{ comment.user.username }}</h5>
 										<p class="card-text">{{ comment.content }}</p>

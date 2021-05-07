@@ -33,22 +33,23 @@
 				<h5 class="my-0 mr-md-auto font-weight-normal">The Cryptography's Wiki</h5>
 
 				<nav class="my-2 my-md-0 mr-md-3">
-					{% if app.request.pathinfo != '/' %}
+					{% if app.request.pathinfo != '/wiki' %}
 						<a class="p-2 text-dark" href="{{ path('wiki_home') }}">Home</a>
 					{% endif %}
 
-					{% if is_granted('ROLE_USER') and (app.request.pathinfo != '/user') %}
+					{% if is_granted('ROLE_USER') and app.request.pathinfo != '/wiki/user' %}
+
 						<a class="p-2 text-dark" href="{{ path('wiki_user') }}">User</a>
 					{% endif %}
 
-					{% if is_granted('ROLE_ADMIN') and (app.request.pathinfo != '/admin') %}
+					{% if is_granted('ROLE_ADMIN') and app.request.pathinfo != '/wiki/admin' %}
 						<a class="p-2 text-dark" href="{{ path('wiki_admin') }}">Admin</a>
 					{% endif %}
 
-					{% if (app.user == false) and (app.request.pathinfo != '/login') %}
+					{% if (app.user == false) and app.request.pathinfo != '/login' %}
 						<a class="btn btn-outline-primary" href="{{ path('app_login') }}">Sign in</a>
 					{% endif %}
-					{% if (app.user == false) and (app.request.pathinfo != '/register') %}
+					{% if (app.user == false) and app.request.pathinfo != '/register' %}
 						<a class="btn btn-outline-dark" href="{{ path('app_register') }}">Sign up</a>
 					{% endif %}
 

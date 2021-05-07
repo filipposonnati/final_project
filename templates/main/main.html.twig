@@ -7,20 +7,20 @@
 	<div class="container-fluid">
 		<div class="row m-2">
 			<div class="col-lg-9 col-md-8 col-12">
-				<div class="row my-1">
+				<div class="row m-3">
 					<div class="col-auto">
-						<div class="card">
-							<div class="card-body">
-								<h5 class="card-title">Special title treatment</h5>
-								<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-								<a href="#" class="btn btn-primary">Go somewhere</a>
-							</div>
+						<div class="jumbotron bg-white text-black border shadow">
+							<h1 class="display-4 text-center">Hello, world!</h1>
+							<p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+							<hr class="my-4 text-white">
+							<p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+							<a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
 						</div>
 					</div>
 				</div>
-				<div class="row my-1">
-					<div class="col">
-						<div class="card">
+				<div class="row m-3 mx-5">
+					<div class="col-7">
+						<div class="card shadow">
 							<div class="card-body">
 								<h5 class="card-title">Special title treatment</h5>
 								<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
@@ -28,38 +28,21 @@
 							</div>
 						</div>
 					</div>
-					<div class="col">
-						<div class="card">
+					<div class="col-5">
+						<div class="card shadow">
 							<div class="card-body">
 								<h5 class="card-title">Special title treatment</h5>
 								<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
 								<a href="#" class="btn btn-primary">Go somewhere</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row my-1">
-					<div class="col-auto">
-						<div class="card">
-							<div class="card-header">
-								Quote
-							</div>
-							<div class="card-body">
-								<blockquote class="blockquote mb-0">
-									<p>A well-known quote, contained in a blockquote element.</p>
-									<footer class="blockquote-footer">Someone famous in
-										<cite title="Source Title">Source Title</cite>
-									</footer>
-								</blockquote>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-lg-3 col-md-4 col-6">
-				<div class="row my-1">
+				<div class="row m-3">
 					<div class="col">
-						<div class="card text-white bg-dark">
+						<div class="card text-white bg-dark shadow-lg">
 							<div class="card-body">
 								<h5 class="card-title">Pagine</h5>
 								{% for page in pages %}

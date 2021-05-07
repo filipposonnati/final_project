@@ -47,7 +47,6 @@ class MainController extends AbstractController
 
     /**
      * @Route("/{title}", name="page")
-     * @IsGranted("ROLE_USER")
      */
     public function page(string $title): Response
     {
