@@ -22,11 +22,15 @@ class PageController extends AbstractController
     public function page(string $title): Response
     {
         $page = $this->getDoctrine()->getRepository(Page::class)->findOneBy(['title' => $title]);
-        $comments = $page->getComments();
 
-        return $this->render('main/page.html.twig', [
-            'page' => $page,
-            'comments' => $comments
-        ]);
+        if(!is_null($page)){
+            $comments = $page->getComments();
+
+            return $this->render('main/page.html.twig', [
+                'page' => $page,
+                'comments' => $comments
+            ]);
+        }
+        return $this->render('main/not_found.html.twig');
     }
 }
