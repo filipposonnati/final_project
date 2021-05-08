@@ -32,11 +32,11 @@
 						</div>
 						{% if is_granted('ROLE_ADMIN') or (comment.user == app.user) %}
 							<div class="col-2 my-1 ml-n2">
-								<button type="button" class="btn btn-primary btn-sm">
+								<a class="btn btn-primary btn-sm" href="{{ path('wiki_delete_comment', {'id_comment': comment.id}) }}" role="button">
 									<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x mt-n2 mx-n2 mb-n1" viewbox="0 0 16 16">
 										<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
 									</svg>
-								</button>
+								</a>
 							</div>
 						{% endif %}
 					</div>

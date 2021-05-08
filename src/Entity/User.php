@@ -64,17 +64,7 @@ class User implements UserInterface
      */
     public function getRoles(): array
     {
-        $username = $this->getUsername();
-        $roles = $this->roles;
-
-        if ($username != 'admin') {
-            // guarantee every user at least has ROLE_USER
-            $roles[] = 'ROLE_USER';
-        } else {
-            // guarantee admin has ROLE_ADMIN
-            $roles[] = 'ROLE_ADMIN';
-        }
-        return array_unique($roles);
+        return $this->roles;
     }
 
     public function setRoles(array $roles): self

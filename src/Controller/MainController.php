@@ -31,21 +31,27 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route("/user", name="user")
+     * @Route("/delete/comment/{id_comment}", name="delete_comment")
      * @IsGranted("ROLE_USER")
      */
-    public function user(): Response
+    public function delete_comment(int $id_comment): Response
     {
-        return $this->render('main/user.html.twig');
-    }
+        $comment = $this->getDoctrine()->getRepository(Comment::class)->find($id_comment);
 
-    /**
-     * @Route("/admin", name="admin")
-     * @IsGranted("ROLE_ADMIN")
-     */
-    public function admin(): Response
-    {
-        return $this->render('main/admin.html.twig');
+        if (!is_null($comment)) {
+            if (($this->getUser() == $comment->getUser()) || ($this->getUser()->getRoles() == array('ROLE_ADMIN'))) {
+                $page = $comment->getPage();
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->remove($comment);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('wiki_page', [
+                    'title' => $page->getTitle()
+                ]);
+            }
+        }
+        return $this->redirectToRoute('wiki_home');
     }
 
     /**
@@ -55,7 +61,7 @@ class MainController extends AbstractController
     {
         $page = $this->getDoctrine()->getRepository(Page::class)->findOneBy(['title' => $title]);
 
-        if(!is_null($page)){
+        if (!is_null($page)) {
             $comments = $page->getComments();
 
             $comment = new Comment();
@@ -73,7 +79,7 @@ class MainController extends AbstractController
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($comment);
                 $entityManager->flush();
-    
+
                 return $this->redirectToRoute('wiki_page', [
                     'title' => $title
                 ]);
