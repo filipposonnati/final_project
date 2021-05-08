@@ -17,10 +17,9 @@ class CommentType extends AbstractType
             ->add('content', TextareaType::class, [
                 'required' => true,
                 'attr' => [
-                    'placeholder' => 'Contenuto'
+                    'placeholder' => 'Scrivi qui il tuo commento alla pagina'
                 ]
             ])
-            ->add('save', SubmitType::class)
         ;
     }
 
