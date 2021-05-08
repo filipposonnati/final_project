@@ -1,20 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<div class="container">
+	<div class="container my-5">
 		<div class="row justify-content-center">
-			<div class="col  text-center my-5">
-				<h1>Page not found</h1>
+			<div class="col text-center">
+				<h1>{{ exception.message }}</h1>
 			</div>
 		</div>
-		<div class="row justify-content-center">
-			<div class="col text-center my-5">
-				<p>
-					The requested page couldn't be located. Checkout for any URL misspelling or
-					<a href="{{ path('wiki_home') }}">return to the homepage</a>.
-				</p>
-			</div>
-		</div>
-
 	</div>
 {% endblock %}

@@ -50,8 +50,9 @@ class MainController extends AbstractController
                     'title' => $page->getTitle()
                 ]);
             }
+            throw $this->createAccessDeniedException('You can\'t delete this comment');
         }
-        return $this->redirectToRoute('wiki_home');
+        throw $this->createNotFoundException('Comment not found');
     }
 
     /**
@@ -91,6 +92,6 @@ class MainController extends AbstractController
                 'comment_form' => $comment_form->createView()
             ]);
         }
-        throw $this->createNotFoundException();
+        throw $this->createNotFoundException('Page not found');
     }
 }
