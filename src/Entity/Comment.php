@@ -34,6 +34,11 @@ class Comment
      */
     private $page;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $insert_datetime;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -71,6 +76,18 @@ class Comment
     public function setPage(?Page $page): self
     {
         $this->page = $page;
+
+        return $this;
+    }
+
+    public function getInsertDatetime(): ?string
+    {
+        return $this->insert_datetime;
+    }
+
+    public function setInsertDatetime(string $insert_datetime): self
+    {
+        $this->insert_datetime = $insert_datetime;
 
         return $this;
     }

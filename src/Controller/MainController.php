@@ -63,7 +63,9 @@ class MainController extends AbstractController
         $page = $this->getDoctrine()->getRepository(Page::class)->findOneBy(['title' => $title]);
 
         if (!is_null($page)) {
-            $comments = $page->getComments();
+            $comments = $this->getDoctrine()
+                ->getRepository(Comment::class)
+                ->findSortedComments($page->getId());
 
             $comment = new Comment();
 
@@ -76,6 +78,7 @@ class MainController extends AbstractController
 
                 $comment->setUser($this->getUser());
                 $comment->setPage($page);
+                $comment->setInsertDateTime(date("Y/m/d H:i"));
 
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($comment);
