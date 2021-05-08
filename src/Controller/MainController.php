@@ -91,6 +91,6 @@ class MainController extends AbstractController
                 'comment_form' => $comment_form->createView()
             ]);
         }
-        return $this->render('main/not_found.html.twig');
+        throw $this->createNotFoundException();
     }
 }
