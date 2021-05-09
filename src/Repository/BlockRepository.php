@@ -45,6 +45,8 @@ class BlockRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('block')
             ->andWhere('block.position > :val')
             ->setParameter('val', $block->getPosition())
+            ->andWhere('block.page > :val')
+            ->setParameter('val', $block->getPage())
             ->getQuery()
             ->getResult();
     }
