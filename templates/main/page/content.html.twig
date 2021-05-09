@@ -24,9 +24,11 @@
 							{% if block.type == 'image' %}{% endif %}
 							{% if block.type == 'code' %}
 								<div class="col">
-									<pre class="my-0">
+									<p>
+										<pre class="my-0">
 <code>{{ block.content }}</code>
 									</pre>
+									</p>
 								</div>
 							{% endif %}
 							{% if is_granted('ROLE_ADMIN') %}
