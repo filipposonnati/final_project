@@ -20,11 +20,23 @@ class BlockController extends AbstractController
      */
     public function delete_block(int $id_block): Response
     {
-        $block = $this->getDoctrine()->getRepository(Block::class)->find($id_block);
+        $block_to_delete = $this->getDoctrine()->getRepository(Block::class)->find($id_block);
 
-        if (!is_null($block)) {
+        if (!is_null($block_to_delete)) {
+            $blocks = $this->getDoctrine()->getRepository(Block::class)->getAllAfter($block_to_delete);
+
+            foreach ($blocks as $block) {
+                $block->setPosition($block->getPosition() - 1);
+            }
+
+            $title = $block_to_delete->getPage()->getTitle();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($block_to_delete);
+            $entityManager->flush();
+
             return $this->redirectToRoute('wiki_page', [
-                'title' => $block->getPage()->getTitle()
+                'title' => $title
             ]);
         }
         throw $this->createNotFoundException('Comment not found');

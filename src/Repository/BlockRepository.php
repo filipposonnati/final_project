@@ -40,6 +40,15 @@ class BlockRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getAllAfter($block)
+    {
+        return $this->createQueryBuilder('block')
+            ->andWhere('block.position > :val')
+            ->setParameter('val', $block->getPosition())
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Block[] Returns an array of Block objects
     //  */
