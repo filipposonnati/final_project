@@ -24,10 +24,8 @@
 							{% if block.type == 'image' %}{% endif %}
 							{% if block.type == 'code' %}
 								<div class="col">
-									<pre>
-										<code>
-{{ block.content }}
-										</code>
+									<pre class="my-0">
+<code>{{ block.content }}</code>
 									</pre>
 								</div>
 							{% endif %}
