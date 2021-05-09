@@ -9,12 +9,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
- * @Route("wiki/delete/", name="wiki_delete_")
+ * @Route("wiki/comment", name="wiki_comment_")
  */
-class DeleteController extends AbstractController
+class CommentController extends AbstractController
 {
     /**
-     * @Route("/comment/{id_comment}", name="comment")
+     * @Route("delete/{id_comment}", name="delete")
      * @IsGranted("ROLE_USER")
      */
     public function delete_comment(int $id_comment): Response
