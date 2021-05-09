@@ -19,7 +19,7 @@ class CommentRepository extends ServiceEntityRepository
         parent::__construct($registry, Comment::class);
     }
 
-    public function findSortedComments($page)
+    public function getSortedComments($page)
     {
         return $this->createQueryBuilder('comment')
             ->andWhere('comment.page = :val')

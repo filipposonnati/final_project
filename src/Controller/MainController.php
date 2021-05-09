@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 use App\Entity\Page;
+use App\Entity\Block;
 use App\Form\CommentType;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -65,7 +66,11 @@ class MainController extends AbstractController
         if (!is_null($page)) {
             $comments = $this->getDoctrine()
                 ->getRepository(Comment::class)
-                ->findSortedComments($page->getId());
+                ->getSortedComments($page->getId());
+
+            $blocks = $this->getDoctrine()
+                ->getRepository(Block::class)
+                ->getSortedBlocks($page->getId());
 
             $comment = new Comment();
 
@@ -91,6 +96,7 @@ class MainController extends AbstractController
 
             return $this->render('main/page.html.twig', [
                 'page' => $page,
+                'blocks' => $blocks,
                 'comments' => $comments,
                 'comment_form' => $comment_form->createView()
             ]);

@@ -34,9 +34,15 @@ class Page
      */
     private $comments;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Block::class, mappedBy="page", orphanRemoval=true)
+     */
+    private $blocks;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->blocks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -92,6 +98,36 @@ class Page
             // set the owning side to null (unless already changed)
             if ($comment->getPage() === $this) {
                 $comment->setPage(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Block[]
+     */
+    public function getBlocks(): Collection
+    {
+        return $this->blocks;
+    }
+
+    public function addBlock(Block $block): self
+    {
+        if (!$this->blocks->contains($block)) {
+            $this->blocks[] = $block;
+            $block->setPage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBlock(Block $block): self
+    {
+        if ($this->blocks->removeElement($block)) {
+            // set the owning side to null (unless already changed)
+            if ($block->getPage() === $this) {
+                $block->setPage(null);
             }
         }
 

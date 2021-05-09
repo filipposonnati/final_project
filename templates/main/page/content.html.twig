@@ -4,20 +4,26 @@
 			<div class="card-body">
 				<h5 class="card-title">{{ page.title }}</h5>
 				<p class="card-text">{{ page.introduction }}</p>
-				<p>
-					When \(a \ne 0,\) there are two solutions to \(ax^2 + bx + c = 0\) and they are $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
-				</p>
-				<p>
-					The well known Pythagorean theorem \(x^2 + y^2 = z^2\) was proved to be invalid for other exponents. Meaning the next equation has no integer solutions: \[ x^n + y^n = z^n \]
-				</p>
-				<p>
-					<pre>
-							<code>
-import numpy as np
-	def incmatrix(genl1,genl2):
-							</code>
+				{% for block in blocks %}
+					{% if block.type == 'title' %}
+						<h7>
+							{{ block.content }}
+						</h7>
+					{% endif %}
+					{% if block.type == 'text' %}
+						<p>
+							{{ block.content }}
+						</p>
+					{% endif %}
+					{% if block.type == 'image' %}{% endif %}
+					{% if block.type == 'code' %}
+						<pre>
+						<code>
+							{{ block.content }}
+						</code>
 						</pre>
-				</p>
+					{% endif %}
+				{% endfor %}
 				<p class="text-right">
 					<a class="btn btn-primary" data-toggle="collapse" href="#title" role="button">
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fonts  mt-n1" viewbox="0 0 16 16">
