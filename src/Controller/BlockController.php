@@ -7,9 +7,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 /**
- * @Route("wiki/block", name="wiki_block")
- * @IsGranted("ROLE_ADMIN")
+ * @Route("wiki/block", name="wiki_block_")
  */
 class BlockController extends AbstractController
 {

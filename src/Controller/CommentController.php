@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,7 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class CommentController extends AbstractController
 {
     /**
-     * @Route("delete/{id_comment}", name="delete")
+     * @Route("/delete/{id_comment}", name="delete")
      * @IsGranted("ROLE_USER")
      */
     public function delete_comment(int $id_comment): Response
