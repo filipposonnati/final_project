@@ -39,20 +39,20 @@
 							{% if is_granted('ROLE_ADMIN') %}
 								<div class="col-auto text-right">
 									{% if block.position > 1 %}
-										<a class="btn btn-primary btn-sm" href="{{ path('wiki_block_move_up', {'id_block': block.id}) }}" role="button">
+										<a class="btn btn-light btn-sm" href="{{ path('wiki_block_move_up', {'id_block': block.id}) }}" role="button">
 											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill mt-n1" viewbox="0 0 16 16">
 												<path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"></path>
 											</svg>
 										</a>
 									{% endif %}
 									{% if block.position < blocks|last.position %}
-										<a class="btn btn-primary btn-sm" href="{{ path('wiki_block_move_down', {'id_block': block.id}) }}" role="button">
+										<a class="btn btn-light btn-sm" href="{{ path('wiki_block_move_down', {'id_block': block.id}) }}" role="button">
 											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill mt-n1" viewbox="0 0 16 16">
 												<path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"></path>
 											</svg>
 										</a>
 									{% endif %}
-									<a class="btn btn-primary btn-sm" href="{{ path('wiki_block_delete', {'id_block': block.id}) }}" role="button">
+									<a class="btn btn-light btn-sm" href="{{ path('wiki_block_delete', {'id_block': block.id}) }}" role="button">
 										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-x mt-n2 mx-n1 mb-n1" viewbox="0 0 16 16">
 											<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
 										</svg>
@@ -83,6 +83,11 @@
 						<a class="btn btn-primary btn-sm" data-toggle="collapse" href="#code" role="button">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-code mt-n1" viewbox="0 0 16 16">
 								<path d="M5.854 4.854a.5.5 0 1 0-.708-.708l-3.5 3.5a.5.5 0 0 0 0 .708l3.5 3.5a.5.5 0 0 0 .708-.708L2.707 8l3.147-3.146zm4.292 0a.5.5 0 0 1 .708-.708l3.5 3.5a.5.5 0 0 1 0 .708l-3.5 3.5a.5.5 0 0 1-.708-.708L13.293 8l-3.147-3.146z"></path>
+							</svg>
+						</a>
+						<a class="btn btn-primary btn-sm" data-toggle="collapse" href="#info" role="button">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-lg mt-n1" viewbox="0 0 16 16">
+								<path d="m10.277 5.433-4.031.505-.145.67.794.145c.516.123.619.309.505.824L6.101 13.68c-.34 1.578.186 2.32 1.423 2.32.959 0 2.072-.443 2.577-1.052l.155-.732c-.35.31-.866.434-1.206.434-.485 0-.66-.34-.536-.939l1.763-8.278zm.122-3.673a1.76 1.76 0 1 1-3.52 0 1.76 1.76 0 0 1 3.52 0z"></path>
 							</svg>
 						</a>
 					</p>
@@ -149,6 +154,13 @@
 								</svg>
 							</button>
 							{{ form_end(code_form) }}
+						</div>
+					</div>
+					<div class="collapse" id="info">
+						<div class="card mt-1">
+							<div class="card-body">
+								Info for the use of math tags.
+							</div>
 						</div>
 					</div>
 				{% endif %}
