@@ -31,6 +31,9 @@ class BlockController extends AbstractController
 
             $title = $block_to_delete->getPage()->getTitle();
 
+            if ($block_to_delete->getType() == 'image')
+                unlink($this->getParameter('image_directory') . $block_to_delete->getContent());
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($block_to_delete);
             $entityManager->flush();
