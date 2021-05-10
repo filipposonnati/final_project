@@ -43,10 +43,10 @@ class BlockRepository extends ServiceEntityRepository
     public function getAllAfter($block)
     {
         return $this->createQueryBuilder('block')
-            ->andWhere('block.position > :val')
-            ->setParameter('val', $block->getPosition())
-            ->andWhere('block.page > :val')
-            ->setParameter('val', $block->getPage())
+            ->andWhere('block.position > :position')
+            ->setParameter('position', $block->getPosition())
+            ->andWhere('block.page = :page')
+            ->setParameter('page', $block->getPage())
             ->getQuery()
             ->getResult();
     }
