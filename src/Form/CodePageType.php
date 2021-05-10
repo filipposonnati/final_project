@@ -7,7 +7,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TextPageType extends AbstractType
+class CodePageType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -15,7 +15,7 @@ class TextPageType extends AbstractType
             ->add('content', TextareaType::class, [
                 'required' => true,
                 'attr' => [
-                    'placeholder' => 'Inserisci del testo'
+                    'placeholder' => 'Inserisci del codice'
                 ]
             ]);
     }

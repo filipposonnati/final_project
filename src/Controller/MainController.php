@@ -12,6 +12,7 @@ use App\Entity\Block;
 use App\Form\CommentType;
 use App\Form\TitlePageType;
 use App\Form\TextPageType;
+use App\Form\CodePageType;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -120,12 +121,39 @@ class MainController extends AbstractController
                 ]);
             }
 
+            //code block creation
+            $code_block = new Block();
+            $code_form = $this->createForm(CodePageType::class, $code_block);
+            $code_form->handleRequest($request);
+
+            if ($code_form->isSubmitted() && $code_form->isValid()) {
+                $code_block = $code_form->getData();
+                $code_block->setType('code');
+                $code_block->setPage($page);
+
+                $lastBlock = $this->getDoctrine()
+                    ->getRepository(Block::class)
+                    ->findLast($page->getId());
+
+                if ($lastBlock == null) $code_block->setPosition(1);
+                else $code_block->setPosition($lastBlock[0]->getPosition() + 1);
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($code_block);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('wiki_page', [
+                    'title' => $title
+                ]);
+            }
+
             return $this->render('main/page.html.twig', [
                 'page' => $page,
                 'blocks' => $blocks,
                 'comments' => $comments,
                 'title_form' => $title_form->createView(),
                 'text_form' => $text_form->createView(),
+                'code_form' => $code_form->createView(),
                 'comment_form' => $comment_form->createView()
             ]);
         }
