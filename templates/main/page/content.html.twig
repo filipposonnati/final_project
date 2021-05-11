@@ -3,8 +3,24 @@
 		<div class="card border shadow-sm">
 			<div class="card-body">
 				<h1 class="card-title text-center display-3">{{ page.title }}</h1>
-				<p class="card-text mb-0 lead">{{ page.introduction }}</p>
 				<div class="container m-0 p-0">
+					<div class="row justify-content-between">
+						<div class="col-9">
+							<p class="lead">
+								{{ page.introduction }}
+							</p>
+						</div>
+						<div class="col-3">
+							<div class="card bg-light">
+								<div class="card-body">
+									<h5 class="card-title">Indice</h5>
+									{% for title_block in title_blocks %}
+										<p class="card-text mb-0">{{ title_block.content }}</p>
+									{% endfor %}
+								</div>
+							</div>
+						</div>
+					</div>
 					{% for block in blocks %}
 						<div class="row">
 							{% if block.type == 'title' %}

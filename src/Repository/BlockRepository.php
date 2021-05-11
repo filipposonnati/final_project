@@ -29,6 +29,18 @@ class BlockRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getTitles($page)
+    {
+        return $this->createQueryBuilder('block')
+            ->andWhere('block.page = :val')
+            ->setParameter('val', $page)
+            ->andWhere('block.type = :type')
+            ->setParameter('type', 'title')
+            ->orderBy('block.position', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findLast($page)
     {
         return $this->createQueryBuilder('block')

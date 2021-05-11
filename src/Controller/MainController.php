@@ -51,6 +51,10 @@ class MainController extends AbstractController
                 ->getRepository(Block::class)
                 ->getSortedBlocks($page->getId());
 
+            $title_blocks = $this->getDoctrine()
+                ->getRepository(Block::class)
+                ->getTitles($page->getId());
+
             //comment creation
             $comment = new Comment();
             $comment_form = $this->createForm(CommentType::class, $comment);
@@ -194,6 +198,7 @@ class MainController extends AbstractController
 
             return $this->render('main/page.html.twig', [
                 'page' => $page,
+                'title_blocks' => $title_blocks,
                 'blocks' => $blocks,
                 'comments' => $comments,
                 'title_form' => $title_form->createView(),
