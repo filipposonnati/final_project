@@ -55,6 +55,8 @@ class MainController extends AbstractController
                 ->getRepository(Block::class)
                 ->getTitles($page->getId());
 
+            $entityManager = $this->getDoctrine()->getManager();
+
             //comment creation
             $comment = new Comment();
             $comment_form = $this->createForm(CommentType::class, $comment);
@@ -67,7 +69,6 @@ class MainController extends AbstractController
                 $comment->setPage($page);
                 $comment->setInsertDateTime(date("Y/m/d H:i"));
 
-                $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($comment);
                 $entityManager->flush();
 
@@ -75,6 +76,10 @@ class MainController extends AbstractController
                     'title' => $title
                 ]);
             }
+
+            $lastBlock = $this->getDoctrine()
+                ->getRepository(Block::class)
+                ->findLast($page->getId());
 
             //title block creation
             $title_block = new Block();
@@ -86,14 +91,9 @@ class MainController extends AbstractController
                 $title_block->setType('title');
                 $title_block->setPage($page);
 
-                $lastBlock = $this->getDoctrine()
-                    ->getRepository(Block::class)
-                    ->findLast($page->getId());
-
                 if ($lastBlock == null) $title_block->setPosition(1);
                 else $title_block->setPosition($lastBlock[0]->getPosition() + 1);
 
-                $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($title_block);
                 $entityManager->flush();
 
@@ -112,15 +112,31 @@ class MainController extends AbstractController
                 $text_block->setType('text');
                 $text_block->setPage($page);
 
-                $lastBlock = $this->getDoctrine()
-                    ->getRepository(Block::class)
-                    ->findLast($page->getId());
-
                 if ($lastBlock == null) $text_block->setPosition(1);
                 else $text_block->setPosition($lastBlock[0]->getPosition() + 1);
 
-                $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($text_block);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('wiki_page', [
+                    'title' => $title
+                ]);
+            }
+
+            //code block creation
+            $code_block = new Block();
+            $code_form = $this->createForm(CodePageType::class, $code_block);
+            $code_form->handleRequest($request);
+
+            if ($code_form->isSubmitted() && $code_form->isValid()) {
+                $code_block = $code_form->getData();
+                $code_block->setType('code');
+                $code_block->setPage($page);
+
+                if ($lastBlock == null) $code_block->setPosition(1);
+                else $code_block->setPosition($lastBlock[0]->getPosition() + 1);
+
+                $entityManager->persist($code_block);
                 $entityManager->flush();
 
                 return $this->redirectToRoute('wiki_page', [
@@ -153,43 +169,12 @@ class MainController extends AbstractController
                 $image_block->setType('image');
                 $image_block->setPage($page);
 
-                $lastBlock = $this->getDoctrine()
-                    ->getRepository(Block::class)
-                    ->findLast($page->getId());
-
                 if ($lastBlock == null) $image_block->setPosition(1);
                 else $image_block->setPosition($lastBlock[0]->getPosition() + 1);
 
-                $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($image_block);
                 $entityManager->flush();
                 $this->addFlash('success', 'Blog was created!');
-
-                return $this->redirectToRoute('wiki_page', [
-                    'title' => $title
-                ]);
-            }
-
-            //code block creation
-            $code_block = new Block();
-            $code_form = $this->createForm(CodePageType::class, $code_block);
-            $code_form->handleRequest($request);
-
-            if ($code_form->isSubmitted() && $code_form->isValid()) {
-                $code_block = $code_form->getData();
-                $code_block->setType('code');
-                $code_block->setPage($page);
-
-                $lastBlock = $this->getDoctrine()
-                    ->getRepository(Block::class)
-                    ->findLast($page->getId());
-
-                if ($lastBlock == null) $code_block->setPosition(1);
-                else $code_block->setPosition($lastBlock[0]->getPosition() + 1);
-
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($code_block);
-                $entityManager->flush();
 
                 return $this->redirectToRoute('wiki_page', [
                     'title' => $title
