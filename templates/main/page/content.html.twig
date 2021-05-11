@@ -2,11 +2,11 @@
 	<div class="col">
 		<div class="card border shadow-sm">
 			<div class="card-body">
-				<h1 class="card-title text-center display-3">{{ page.title }}</h1>
+				<h1 class="card-title text-center display-4">{{ page.title }}</h1>
 				<div class="container m-0 p-0">
 					<div class="row justify-content-between">
 						<div class="col-9">
-							<p class="lead">
+							<p class="mt-1">
 								{{ page.introduction }}
 							</p>
 						</div>
@@ -15,7 +15,9 @@
 								<div class="card-body">
 									<h5 class="card-title">Indice</h5>
 									{% for title_block in title_blocks %}
-										<p class="card-text mb-0">{{ title_block.content }}</p>
+										<p class="m-0">
+											<a class="text-dark" href="#{{ title_block.content }}" offset="1000">{{ title_block.content }}</a>
+										</p>
 									{% endfor %}
 								</div>
 							</div>
@@ -29,7 +31,7 @@
 										<hr>
 									</p>
 								</div>
-								<div class="col">
+								<div class="col" id="{{ block.content }}">
 									<h2>
 										{{ block.content }}
 									</h2>
@@ -37,7 +39,7 @@
 							{% endif %}
 							{% if block.type == 'text' %}
 								<div class="col">
-									<p class="lead">
+									<p>
 										{{ block.content }}
 									</p>
 								</div>
@@ -55,20 +57,20 @@
 							{% if is_granted('ROLE_ADMIN') %}
 								<div class="col-auto text-right">
 									{% if block.position > 1 %}
-										<a class="btn btn-light btn-sm" href="{{ path('wiki_block_move_up', {'id_block': block.id}) }}" role="button">
+										<a class="btn btn-primary btn-sm" href="{{ path('wiki_block_move_up', {'id_block': block.id}) }}" role="button">
 											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill mt-n1" viewbox="0 0 16 16">
 												<path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"></path>
 											</svg>
 										</a>
 									{% endif %}
 									{% if block.position < blocks|last.position %}
-										<a class="btn btn-light btn-sm" href="{{ path('wiki_block_move_down', {'id_block': block.id}) }}" role="button">
+										<a class="btn btn-primary btn-sm" href="{{ path('wiki_block_move_down', {'id_block': block.id}) }}" role="button">
 											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill mt-n1" viewbox="0 0 16 16">
 												<path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"></path>
 											</svg>
 										</a>
 									{% endif %}
-									<a class="btn btn-light btn-sm" href="{{ path('wiki_block_delete', {'id_block': block.id}) }}" role="button">
+									<a class="btn btn-primary btn-sm" href="{{ path('wiki_block_delete', {'id_block': block.id}) }}" role="button">
 										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-x mt-n2 mx-n1 mb-n1" viewbox="0 0 16 16">
 											<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
 										</svg>
