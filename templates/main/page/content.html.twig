@@ -25,10 +25,10 @@
 				{% for block in blocks %}
 					<div class="row">
 						{% if block.type == 'title' %}
-							<div class="col" id="{{ block.content }}">
-								<h2 class=" border-top mt-3 pt-3">
+							<div class="col border-top mt-3 pt-3" id="{{ block.content }}">
+								<h4 class="">
 									{{ block.content }}
-								</h2>
+								</h4>
 							</div>
 						{% endif %}
 						{% if block.type == 'text' %}
@@ -178,7 +178,8 @@
 				<div class="collapse" id="info">
 					<div class="card mt-1">
 						<div class="card-body">
-							Info for the use of math tags.
+							<a class="p-2 text-dark" href="https://en.wikibooks.org/wiki/LaTeX/Mathematics">Guida per inserire i simboli matematici nella wiki.</a>
+
 						</div>
 					</div>
 				</div>
