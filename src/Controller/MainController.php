@@ -86,7 +86,12 @@ class MainController extends AbstractController
             // title block creation //
             //////////////////////////
             $title_block = new Block();
-            $title_form = $this->createForm(TitlePageType::class, $title_block);
+
+            $positions = range(1, $lastBlock[0]->getPosition() + 1);
+
+            $title_form = $this->createForm(TitlePageType::class, $title_block, [
+                'positions' => $positions,
+            ]);
             $title_form->handleRequest($request);
 
             if ($title_form->isSubmitted() && $title_form->isValid()) {
