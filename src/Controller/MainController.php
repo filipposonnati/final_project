@@ -81,13 +81,19 @@ class MainController extends AbstractController
             $lastBlock = $this->getDoctrine()
                 ->getRepository(Block::class)
                 ->findLast($page->getId());
+            
+            if (!array_key_exists(0, $lastBlock))
+                $lastBlock_position = 0;
+            else 
+                $lastBlock_position = $lastBlock[0]->getPosition();
 
             //////////////////////////
             // title block creation //
             //////////////////////////
             $title_block = new Block();
 
-            $positions = range(1, $lastBlock[0]->getPosition() + 1);
+            $positions = range(0, $lastBlock_position + 1);
+            unset($positions[0]);
 
             $title_form = $this->createForm(TitlePageType::class, $title_block, [
                 'positions' => $positions,
