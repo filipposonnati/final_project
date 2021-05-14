@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,13 +18,18 @@ class TextPageType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Inserisci del testo'
                 ]
+            ])
+            ->add('position', ChoiceType::class, [
+                'choices' => $options['positions']
             ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            'positions' => 1,
         ]);
+
+        $resolver->setAllowedTypes('positions', 'array');
     }
 }

@@ -63,6 +63,17 @@ class BlockRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getAllNotBefore($block)
+    {
+        return $this->createQueryBuilder('block')
+            ->andWhere('block.position >= :position')
+            ->setParameter('position', $block->getPosition())
+            ->andWhere('block.page = :page')
+            ->setParameter('page', $block->getPage())
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Block[] Returns an array of Block objects
     //  */

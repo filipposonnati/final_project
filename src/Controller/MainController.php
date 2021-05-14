@@ -54,6 +54,18 @@ class MainController extends AbstractController
                 ->getRepository(Block::class)
                 ->getTitles($page->getId());
 
+            $lastBlock = $this->getDoctrine()
+                ->getRepository(Block::class)
+                ->findLast($page->getId());
+
+            if (!array_key_exists(0, $lastBlock))
+                $lastBlock_position = 0;
+            else
+                $lastBlock_position = $lastBlock[0]->getPosition();
+
+            $positions = range(0, $lastBlock_position + 1);
+            unset($positions[0]);
+
             $entityManager = $this->getDoctrine()->getManager();
 
             //////////////////////
@@ -78,23 +90,10 @@ class MainController extends AbstractController
                 ]);
             }
 
-            $lastBlock = $this->getDoctrine()
-                ->getRepository(Block::class)
-                ->findLast($page->getId());
-            
-            if (!array_key_exists(0, $lastBlock))
-                $lastBlock_position = 0;
-            else 
-                $lastBlock_position = $lastBlock[0]->getPosition();
-
             //////////////////////////
             // title block creation //
             //////////////////////////
             $title_block = new Block();
-
-            $positions = range(0, $lastBlock_position + 1);
-            unset($positions[0]);
-
             $title_form = $this->createForm(TitlePageType::class, $title_block, [
                 'positions' => $positions,
             ]);
@@ -105,8 +104,11 @@ class MainController extends AbstractController
                 $title_block->setType('title');
                 $title_block->setPage($page);
 
-                if ($lastBlock == null) $title_block->setPosition(1);
-                else $title_block->setPosition($lastBlock[0]->getPosition() + 1);
+                $blocks_to_shift = $this->getDoctrine()->getRepository(Block::class)->getAllNotBefore($title_block);
+
+                foreach ($blocks_to_shift as $block) {
+                    $block->setPosition($block->getPosition() + 1);
+                }
 
                 $entityManager->persist($title_block);
                 $entityManager->flush();
@@ -120,7 +122,9 @@ class MainController extends AbstractController
             // text block creation //
             /////////////////////////
             $text_block = new Block();
-            $text_form = $this->createForm(TextPageType::class, $text_block);
+            $text_form = $this->createForm(TextPageType::class, $text_block, [
+                'positions' => $positions,
+            ]);
             $text_form->handleRequest($request);
 
             if ($text_form->isSubmitted() && $text_form->isValid()) {
@@ -128,8 +132,11 @@ class MainController extends AbstractController
                 $text_block->setType('text');
                 $text_block->setPage($page);
 
-                if ($lastBlock == null) $text_block->setPosition(1);
-                else $text_block->setPosition($lastBlock[0]->getPosition() + 1);
+                $blocks_to_shift = $this->getDoctrine()->getRepository(Block::class)->getAllNotBefore($text_block);
+
+                foreach ($blocks_to_shift as $block) {
+                    $block->setPosition($block->getPosition() + 1);
+                }
 
                 $entityManager->persist($text_block);
                 $entityManager->flush();
@@ -143,7 +150,9 @@ class MainController extends AbstractController
             // code block creation //
             /////////////////////////
             $code_block = new Block();
-            $code_form = $this->createForm(CodePageType::class, $code_block);
+            $code_form = $this->createForm(CodePageType::class, $code_block, [
+                'positions' => $positions,
+            ]);
             $code_form->handleRequest($request);
 
             if ($code_form->isSubmitted() && $code_form->isValid()) {
@@ -151,8 +160,11 @@ class MainController extends AbstractController
                 $code_block->setType('code');
                 $code_block->setPage($page);
 
-                if ($lastBlock == null) $code_block->setPosition(1);
-                else $code_block->setPosition($lastBlock[0]->getPosition() + 1);
+                $blocks_to_shift = $this->getDoctrine()->getRepository(Block::class)->getAllNotBefore($code_block);
+
+                foreach ($blocks_to_shift as $block) {
+                    $block->setPosition($block->getPosition() + 1);
+                }
 
                 $entityManager->persist($code_block);
                 $entityManager->flush();
@@ -166,7 +178,9 @@ class MainController extends AbstractController
             // image block creation //
             //////////////////////////
             $image_block = new Block();
-            $image_form = $this->createForm(ImagePageType::class);
+            $image_form = $this->createForm(ImagePageType::class, null, [
+                'positions' => $positions,
+            ]);
             $image_form->handleRequest($request);
 
             if ($image_form->isSubmitted() && $image_form->isValid()) {
@@ -188,13 +202,16 @@ class MainController extends AbstractController
                 $image_block->setContent($newFilename);
                 $image_block->setType('image');
                 $image_block->setPage($page);
+                $image_block->setPosition($image_form->get('position')->getData());
 
-                if ($lastBlock == null) $image_block->setPosition(1);
-                else $image_block->setPosition($lastBlock[0]->getPosition() + 1);
+                $blocks_to_shift = $this->getDoctrine()->getRepository(Block::class)->getAllNotBefore($image_block);
+
+                foreach ($blocks_to_shift as $block) {
+                    $block->setPosition($block->getPosition() + 1);
+                }
 
                 $entityManager->persist($image_block);
                 $entityManager->flush();
-                $this->addFlash('success', 'Blog was created!');
 
                 return $this->redirectToRoute('wiki_page', [
                     'title' => $title

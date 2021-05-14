@@ -159,6 +159,18 @@ class BlockController extends AbstractController
                 ->getRepository(Block::class)
                 ->getTitles($page->getId());
 
+            $lastBlock = $this->getDoctrine()
+                ->getRepository(Block::class)
+                ->findLast($page->getId());
+
+            if (!array_key_exists(0, $lastBlock))
+                $lastBlock_position = 0;
+            else
+                $lastBlock_position = $lastBlock[0]->getPosition();
+
+            $positions = range(0, $lastBlock_position + 1);
+            unset($positions[0]);
+
             //////////////////////
             // comment creation //
             //////////////////////
@@ -196,6 +208,7 @@ class BlockController extends AbstractController
             if ($type_to_reload == 'title')
                 $title_block->setContent($content_to_reload);
             $title_form = $this->createForm(TitlePageType::class, $title_block, [
+                'positions' => $positions,
                 'action' => $this->generateUrl('wiki_page', [
                     'title' => $title
                 ])
@@ -207,8 +220,11 @@ class BlockController extends AbstractController
                 $title_block->setType('title');
                 $title_block->setPage($page);
 
-                if ($lastBlock == null) $title_block->setPosition(1);
-                else $title_block->setPosition($lastBlock[0]->getPosition() + 1);
+                $blocks_to_shift = $this->getDoctrine()->getRepository(Block::class)->getAllNotBefore($title_block);
+
+                foreach ($blocks_to_shift as $block) {
+                    $block->setPosition($block->getPosition() + 1);
+                }
 
                 $entityManager->persist($title_block);
                 $entityManager->flush();
@@ -225,6 +241,7 @@ class BlockController extends AbstractController
             if ($type_to_reload == 'text')
                 $text_block->setContent($content_to_reload);
             $text_form = $this->createForm(TextPageType::class, $text_block, [
+                'positions' => $positions,
                 'action' => $this->generateUrl('wiki_page', [
                     'title' => $title
                 ])
@@ -236,8 +253,11 @@ class BlockController extends AbstractController
                 $text_block->setType('text');
                 $text_block->setPage($page);
 
-                if ($lastBlock == null) $text_block->setPosition(1);
-                else $text_block->setPosition($lastBlock[0]->getPosition() + 1);
+                $blocks_to_shift = $this->getDoctrine()->getRepository(Block::class)->getAllNotBefore($text_block);
+
+                foreach ($blocks_to_shift as $block) {
+                    $block->setPosition($block->getPosition() + 1);
+                }
 
                 $entityManager->persist($text_block);
                 $entityManager->flush();
@@ -254,6 +274,7 @@ class BlockController extends AbstractController
             if ($type_to_reload == 'code')
                 $code_block->setContent($content_to_reload);
             $code_form = $this->createForm(CodePageType::class, $code_block, [
+                'positions' => $positions,
                 'action' => $this->generateUrl('wiki_page', [
                     'title' => $title
                 ])
@@ -265,8 +286,11 @@ class BlockController extends AbstractController
                 $code_block->setType('code');
                 $code_block->setPage($page);
 
-                if ($lastBlock == null) $code_block->setPosition(1);
-                else $code_block->setPosition($lastBlock[0]->getPosition() + 1);
+                $blocks_to_shift = $this->getDoctrine()->getRepository(Block::class)->getAllNotBefore($code_block);
+
+                foreach ($blocks_to_shift as $block) {
+                    $block->setPosition($block->getPosition() + 1);
+                }
 
                 $entityManager->persist($code_block);
                 $entityManager->flush();
@@ -281,6 +305,7 @@ class BlockController extends AbstractController
             //////////////////////////
             $image_block = new Block();
             $image_form = $this->createForm(ImagePageType::class, null, [
+                'positions' => $positions,
                 'action' => $this->generateUrl('wiki_page', [
                     'title' => $title
                 ])
@@ -307,8 +332,11 @@ class BlockController extends AbstractController
                 $image_block->setType('image');
                 $image_block->setPage($page);
 
-                if ($lastBlock == null) $image_block->setPosition(1);
-                else $image_block->setPosition($lastBlock[0]->getPosition() + 1);
+                $blocks_to_shift = $this->getDoctrine()->getRepository(Block::class)->getAllNotBefore($image_block);
+
+                foreach ($blocks_to_shift as $block) {
+                    $block->setPosition($block->getPosition() + 1);
+                }
 
                 $entityManager->persist($image_block);
                 $entityManager->flush();
