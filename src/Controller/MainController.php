@@ -10,12 +10,15 @@ use App\Form\TitlePageType;
 use App\Form\TextPageType;
 use App\Form\CodePageType;
 use App\Form\ImagePageType;
+use App\Form\PageType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\String\Slugger\SluggerInterface;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/wiki", name="wiki_")
@@ -25,21 +28,40 @@ class MainController extends AbstractController
     /**
      * @Route("", name="home")
      */
-    public function main(): Response
+    public function main(Request $request): Response
     {
+        $entityManager = $this->getDoctrine()->getManager();
         $pages = $this->getDoctrine()->getRepository(Page::class)->findAll();
 
+        ///////////////////
+        // page creation //
+        ///////////////////
+        $page = new Page();
+        $page_form = $this->createForm(PageType::class, $page);
+        $page_form->handleRequest($request);
+
+        if ($page_form->isSubmitted() && $page_form->isValid()) {
+            $page->setIntroduction('');
+            $entityManager->persist($page);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('wiki_page', [
+                'id' => $page->getId()
+            ]);
+        }
+
         return $this->render('main/main.html.twig', [
-            'pages' => $pages
+            'pages' => $pages,
+            'page_form' => $page_form->createView()
         ]);
     }
 
     /**
-     * @Route("/{title}", name="page")
+     * @Route("/{id}", name="page")
      */
-    public function page(string $title, Request $request, SluggerInterface $slugger): Response
+    public function page(int $id, Request $request, SluggerInterface $slugger): Response
     {
-        $page = $this->getDoctrine()->getRepository(Page::class)->findOneBy(['title' => $title]);
+        $page = $this->getDoctrine()->getRepository(Page::class)->find($id);
 
         if (!is_null($page)) {
             $comments = $this->getDoctrine()
@@ -86,7 +108,7 @@ class MainController extends AbstractController
                 $entityManager->flush();
 
                 return $this->redirectToRoute('wiki_page', [
-                    'title' => $title
+                    'id' => $page->getId()
                 ]);
             }
 
@@ -114,7 +136,7 @@ class MainController extends AbstractController
                 $entityManager->flush();
 
                 return $this->redirectToRoute('wiki_page', [
-                    'title' => $title
+                    'id' => $page->getId()
                 ]);
             }
 
@@ -142,7 +164,7 @@ class MainController extends AbstractController
                 $entityManager->flush();
 
                 return $this->redirectToRoute('wiki_page', [
-                    'title' => $title
+                    'id' => $page->getId()
                 ]);
             }
 
@@ -170,7 +192,7 @@ class MainController extends AbstractController
                 $entityManager->flush();
 
                 return $this->redirectToRoute('wiki_page', [
-                    'title' => $title
+                    'id' => $page->getId()
                 ]);
             }
 
@@ -214,7 +236,7 @@ class MainController extends AbstractController
                 $entityManager->flush();
 
                 return $this->redirectToRoute('wiki_page', [
-                    'title' => $title
+                    'id' => $page->getId()
                 ]);
             }
 
@@ -229,6 +251,32 @@ class MainController extends AbstractController
                 'code_form' => $code_form->createView(),
                 'comment_form' => $comment_form->createView()
             ]);
+        }
+        throw $this->createNotFoundException('Page not found');
+    }
+
+    /**
+     * @Route("/delete/{id}", name="page_delete")
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function delete(int $id): Response
+    {
+        $page_to_delete = $this->getDoctrine()->getRepository(Page::class)->find($id);
+
+        if (!is_null($page_to_delete)) {
+            $blocks = $page_to_delete->getBlocks();
+
+            foreach ($blocks as $block) {
+                if ($block->getType() == 'image') {
+                    unlink($this->getParameter('image_directory') . $block->getContent());
+                }
+            }
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($page_to_delete);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('wiki_home');
         }
         throw $this->createNotFoundException('Page not found');
     }

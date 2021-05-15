@@ -31,7 +31,7 @@ class CommentController extends AbstractController
                 $entityManager->flush();
 
                 return $this->redirectToRoute('wiki_page', [
-                    'title' => $page->getTitle()
+                    'id' => $page->getId()
                 ]);
             }
             throw $this->createAccessDeniedException('You can\'t delete this comment');

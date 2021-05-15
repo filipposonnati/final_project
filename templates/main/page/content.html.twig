@@ -1,14 +1,29 @@
 <div class="container">
 	<div class="card shadow">
 		<div class="card-body">
-			<h1 class="card-title text-center display-4">{{ page.title }}</h1>
 			<div class="container m-0 p-0">
-				<div class="row justify-content-between mb-1">
-					<div class="col-md-9">
-						<p class="mt-1">
-							{{ page.introduction }}
-						</p>
+				<div class="row align-items-center">
+					<div class="col">
+						<h1 class="card-title text-center display-4">{{ page.title }}</h1>
 					</div>
+					{% if is_granted('ROLE_ADMIN') %}
+						<div class="col-auto text-right align-center">
+							<a class="btn btn-primary btn-sm" href="{{ path('wiki_page_delete', {'id': page.id}) }}" role="button">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-x mt-n2 mx-n1 mb-n1" viewbox="0 0 16 16">
+									<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
+								</svg>
+							</a>
+						</div>
+					{% endif %}
+				</div>
+				<div class="row justify-content-between">
+					{% if not page.introduction is empty %}
+						<div class="col-md-9">
+							<p class="mt-1">
+								{{ page.introduction }}
+							</p>
+						</div>
+					{% endif %}
 					{% if not title_blocks is empty %}
 						<div class="col-md-3">
 							<div class="card bg-light">
@@ -16,7 +31,7 @@
 									<h5 class="card-title">Indice</h5>
 									{% for title_block in title_blocks %}
 										<p class="m-0">
-											<a class="text-dark" href="#{{ title_block.content }}" offset="1000">{{ title_block.content }}</a>
+											<a class="text-dark" href="#{{ title_block.content }}">{{ title_block.content }}</a>
 										</p>
 									{% endfor %}
 								</div>
@@ -25,7 +40,7 @@
 					{% endif %}
 				</div>
 				{% for block in blocks %}
-					<div class="row">
+					<div class="row  mt-1">
 						{% if block.type == 'title' %}
 							<div class="col border-top mt-3 pt-3" id="{{ block.content }}">
 								<h4 class="">

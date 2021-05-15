@@ -20,14 +20,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("wiki/block", name="wiki_block_")
+ * @IsGranted("ROLE_ADMIN")
  */
 class BlockController extends AbstractController
 {
     /**
      * @Route("/delete/{id_block}", name="delete")
-     * @IsGranted("ROLE_ADMIN")
      */
-    public function delete_block(int $id_block): Response
+    public function delete(int $id_block): Response
     {
         $block_to_delete = $this->getDoctrine()->getRepository(Block::class)->find($id_block);
 
@@ -38,7 +38,7 @@ class BlockController extends AbstractController
                 $block->setPosition($block->getPosition() - 1);
             }
 
-            $title = $block_to_delete->getPage()->getTitle();
+            $id = $block_to_delete->getPage()->getId();
 
             if ($block_to_delete->getType() == 'image')
                 unlink($this->getParameter('image_directory') . $block_to_delete->getContent());
@@ -48,7 +48,7 @@ class BlockController extends AbstractController
             $entityManager->flush();
 
             return $this->redirectToRoute('wiki_page', [
-                'title' => $title
+                'id' => $id
             ]);
         }
         throw $this->createNotFoundException('Block not found');
@@ -56,7 +56,6 @@ class BlockController extends AbstractController
 
     /**
      * @Route("/move_up/{id_block}", name="move_up")
-     * @IsGranted("ROLE_ADMIN")
      */
     public function move_up(int $id_block): Response
     {
@@ -78,7 +77,7 @@ class BlockController extends AbstractController
                 $this->getDoctrine()->getManager()->flush();
 
                 return $this->redirectToRoute('wiki_page', [
-                    'title' => $block_down->getPage()->getTitle()
+                    'id' => $block_down->getPage()->getId()
                 ]);
             }
         }
@@ -87,7 +86,6 @@ class BlockController extends AbstractController
 
     /**
      * @Route("/move_down/{id_block}", name="move_down")
-     * @IsGranted("ROLE_ADMIN")
      */
     public function move_down(int $id_block): Response
     {
@@ -111,7 +109,7 @@ class BlockController extends AbstractController
                 $this->getDoctrine()->getManager()->flush();
 
                 return $this->redirectToRoute('wiki_page', [
-                    'title' => $block_up->getPage()->getTitle()
+                    'id' => $block_up->getPage()->getId()
                 ]);
             }
         }
@@ -120,7 +118,6 @@ class BlockController extends AbstractController
 
     /**
      * @Route("/edit/{id_block}", name="edit")
-     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(int $id_block, Request $request, SluggerInterface $slugger): Response
     {
@@ -141,7 +138,7 @@ class BlockController extends AbstractController
                 $block->setPosition($block->getPosition() - 1);
             }
 
-            $title = $block_to_edit->getPage()->getTitle();
+            $id = $block_to_edit->getPage()->getId();
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($block_to_edit);
@@ -177,7 +174,7 @@ class BlockController extends AbstractController
             $comment = new Comment();
             $comment_form = $this->createForm(CommentType::class, $comment, [
                 'action' => $this->generateUrl('wiki_page', [
-                    'title' => $title
+                    'id' => $id
                 ])
             ]);
             $comment_form->handleRequest($request);
@@ -193,7 +190,7 @@ class BlockController extends AbstractController
                 $entityManager->flush();
 
                 return $this->redirectToRoute('wiki_page', [
-                    'title' => $title
+                    'id' => $id
                 ]);
             }
 
@@ -210,7 +207,7 @@ class BlockController extends AbstractController
             $title_form = $this->createForm(TitlePageType::class, $title_block, [
                 'positions' => $positions,
                 'action' => $this->generateUrl('wiki_page', [
-                    'title' => $title
+                    'id' => $id
                 ])
             ]);
             $title_form->handleRequest($request);
@@ -230,7 +227,7 @@ class BlockController extends AbstractController
                 $entityManager->flush();
 
                 return $this->redirectToRoute('wiki_page', [
-                    'title' => $title
+                    'id' => $id
                 ]);
             }
 
@@ -243,7 +240,7 @@ class BlockController extends AbstractController
             $text_form = $this->createForm(TextPageType::class, $text_block, [
                 'positions' => $positions,
                 'action' => $this->generateUrl('wiki_page', [
-                    'title' => $title
+                    'id' => $id
                 ])
             ]);
             $text_form->handleRequest($request);
@@ -263,7 +260,7 @@ class BlockController extends AbstractController
                 $entityManager->flush();
 
                 return $this->redirectToRoute('wiki_page', [
-                    'title' => $title
+                    'id' => $id
                 ]);
             }
 
@@ -276,7 +273,7 @@ class BlockController extends AbstractController
             $code_form = $this->createForm(CodePageType::class, $code_block, [
                 'positions' => $positions,
                 'action' => $this->generateUrl('wiki_page', [
-                    'title' => $title
+                    'id' => $id
                 ])
             ]);
             $code_form->handleRequest($request);
@@ -296,7 +293,7 @@ class BlockController extends AbstractController
                 $entityManager->flush();
 
                 return $this->redirectToRoute('wiki_page', [
-                    'title' => $title
+                    'id' => $id
                 ]);
             }
 
@@ -307,7 +304,7 @@ class BlockController extends AbstractController
             $image_form = $this->createForm(ImagePageType::class, null, [
                 'positions' => $positions,
                 'action' => $this->generateUrl('wiki_page', [
-                    'title' => $title
+                    'id' => $id
                 ])
             ]);
             $image_form->handleRequest($request);
@@ -343,7 +340,7 @@ class BlockController extends AbstractController
                 $this->addFlash('success', 'Blog was created!');
 
                 return $this->redirectToRoute('wiki_page', [
-                    'title' => $title
+                    'id' => $id
                 ]);
             }
 
