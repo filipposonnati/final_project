@@ -19,13 +19,13 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
- * @Route("wiki/block", name="wiki_block_")
+ * @Route("block", name="wiki_block_")
  * @IsGranted("ROLE_ADMIN")
  */
 class BlockController extends AbstractController
 {
     /**
-     * @Route("/delete/{id_block}", name="delete")
+     * @Route("/delete/{id_block}", name="delete", requirements={"id_block"="\d+"})
      */
     public function delete(int $id_block): Response
     {
@@ -55,7 +55,7 @@ class BlockController extends AbstractController
     }
 
     /**
-     * @Route("/move_up/{id_block}", name="move_up")
+     * @Route("/move_up/{id_block}", name="move_up", requirements={"id_block"="\d+"})
      */
     public function move_up(int $id_block): Response
     {
@@ -85,7 +85,7 @@ class BlockController extends AbstractController
     }
 
     /**
-     * @Route("/move_down/{id_block}", name="move_down")
+     * @Route("/move_down/{id_block}", name="move_down", requirements={"id_block"="\d+"})
      */
     public function move_down(int $id_block): Response
     {
@@ -117,7 +117,7 @@ class BlockController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{id_block}", name="edit")
+     * @Route("/edit/{id_block}", name="edit", requirements={"id_block"="\d+"})
      */
     public function edit(int $id_block, Request $request, SluggerInterface $slugger): Response
     {

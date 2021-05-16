@@ -1,5 +1,5 @@
 var shiftWindow = function() {
-    var scroll = -document.getElementById('id_navbar').clientHeight - 30;
+    var scroll = -document.getElementById('id_navbar').clientHeight;
     console.log(scroll);
     scrollBy(0, scroll);
 };

@@ -21,7 +21,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
- * @Route("/wiki", name="wiki_")
+ * @Route("", name="wiki_")
  */
 class MainController extends AbstractController
 {
@@ -57,7 +57,7 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="page")
+     * @Route("/{id}", name="page", requirements={"id"="\d+"})
      */
     public function page(int $id, Request $request, SluggerInterface $slugger): Response
     {
@@ -256,7 +256,7 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{id}", name="page_delete")
+     * @Route("/delete/{id}", name="page_delete", requirements={"id"="\d+"})
      * @IsGranted("ROLE_ADMIN")
      */
     public function delete(int $id): Response
