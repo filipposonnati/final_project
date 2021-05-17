@@ -2,7 +2,7 @@
 
 {% block body %}
 	<div class="container-fluid">
-		<div class="row m-3">
+		<div class="row m-5">
 			<div class="col">
 				<div class="jumbotron bg-white text-black border shadow-sm">
 					<h1 class="display-4 text-center">La crittografia</h1>
@@ -13,7 +13,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="row m-3">
+		<div class="row m-5">
 			<div class="col-7">
 				<div class="card shadow-sm">
 					<div class="card-body">
@@ -35,22 +35,20 @@
 				</div>
 			</div>
 		</div>
-		<div class="row m-3">
-			{% for part in pages %}
-				<div class="col px-1">
-					{% for page in part %}
-						<div class="card rounded-lg my-2">
-							<div class="card-body">
-								<a class="text-dark" href="{{ path('wiki_page', {'id': page.id}) }}">{{ page.title }}</a>
-							</div>
+		<div class="row m-5">
+			{% for page in pages %}
+				<div class="col-lg-3 col-md-4 col-sm-6 px-1">
+					<div class="card rounded-lg my-2">
+						<div class="card-body">
+							<a class="text-dark  stretched-link" href="{{ path('wiki_page', {'id': page.id}) }}">{{ page.title }}</a>
 						</div>
-					{% endfor %}
+					</div>
 				</div>
 			{% endfor %}
 		</div>
-		<div class="row m-3">
-			<div class="col p-0">
-				{% if is_granted('ROLE_ADMIN') %}
+		{% if is_granted('ROLE_ADMIN') %}
+			<div class="row m-5">
+				<div class="col px-1">
 					{{ form_start(page_form) }}
 					<div class="form-row">
 						<div class="form-group mb-0 mt-2 col">
@@ -68,8 +66,9 @@
 					</button>
 					{{ form_rest(page_form) }}
 					{{ form_end(page_form) }}
-				{% endif %}
+
+				</div>
 			</div>
-		</div>
+		{% endif %}
 	</div>
 {% endblock %}
