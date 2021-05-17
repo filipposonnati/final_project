@@ -31,7 +31,12 @@ class MainController extends AbstractController
     public function main(Request $request): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
+
+        ///////////////////////////////////
+        // split delle pagine in 4 parti //
+        ///////////////////////////////////
         $pages = $this->getDoctrine()->getRepository(Page::class)->findAll();
+        $splitted_pages = array_chunk($pages, (ceil(count($pages) / 4)));
 
         ///////////////////
         // page creation //
@@ -51,7 +56,7 @@ class MainController extends AbstractController
         }
 
         return $this->render('main/main.html.twig', [
-            'pages' => $pages,
+            'pages' => $splitted_pages,
             'page_form' => $page_form->createView()
         ]);
     }
