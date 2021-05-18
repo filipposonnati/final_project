@@ -1,29 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<div class="container-fluid">
-		<div class="row m-5">
+	<div class="container">
+		<div class="row mx-lg-3 mx-md-2 mx-sm-1 mt-5">
 			<div class="col">
-				<div class="jumbotron bg-white text-black border shadow-sm">
-					<h1 class="display-4 text-center">La crittografia</h1>
-					<p class="lead">La crittografia è un insieme di procedure ideate al fine di nascondere il significato di un messaggio.</p>
-					<p class="lead">Essa ha 2 parti essenziali: un algoritmo di cifratura ed una chiave.</p>
-					<hr class="my-4 text-white">
-					something
-				</div>
+				<h1 class="display-1"><strong>Benvenuto nella Wiki</strong></h1>
+				<p class="lead">Qui può trovare tutto quello che c'è da sapere sulla crittografia</p>
 			</div>
 		</div>
-		<div class="row m-5">
-			<div class="col-7">
-				<div class="card shadow-sm">
-					<div class="card-body">
-						<h5 class="card-title">Special title treatment</h5>
-						<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-						<a href="#" class="btn btn-primary">Go somewhere</a>
-					</div>
-				</div>
+		<div class="row align-items-center mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 border-top border-dark">
+			<div class="col-6">
+				<h1 class="display-2">Scopri i principali algoritmi di crittografia</h1>
 			</div>
-			<div class="col-5">
+			<div class="col-6">
 				<div class="card shadow-sm">
 					<div class="card-body">
 						<blockquote class="blockquote mb-0">
@@ -35,9 +24,25 @@
 				</div>
 			</div>
 		</div>
-		<div class="row m-5">
+		<div class="row align-items-center mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 border-top border-dark">
+			<div class="col-6">
+				<div class="card shadow-sm">
+					<div class="card-body">
+						<blockquote class="blockquote mb-0">
+							<p>"Un sistema crittografico dovrebbe essere protetto anche se tutto ciò che riguarda il sistema, tranne la chiave, è di dominio pubblico".</p>
+							<footer class="blockquote-footer">Auguste Kerckhoffs
+							</footer>
+						</blockquote>
+					</div>
+				</div>
+			</div>
+			<div class="col-6">
+				<h1 class="display-3">Impara tutta la matematica che c'è dietro la crittografia</h1>
+			</div>
+		</div>
+		<div class="row mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 border-top border-dark">
 			{% for page in pages %}
-				<div class="col-lg-3 col-md-4 col-sm-6 px-1">
+				<div class="col-lg-3 col-md-4 col-sm-6">
 					<div class="card rounded-lg my-2">
 						<div class="card-body">
 							<a class="text-dark  stretched-link" href="{{ path('wiki_page', {'id': page.id}) }}">{{ page.title }}</a>
@@ -47,8 +52,8 @@
 			{% endfor %}
 		</div>
 		{% if is_granted('ROLE_ADMIN') %}
-			<div class="row m-5">
-				<div class="col px-1">
+			<div class="row mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 mb-5 border-top border-dark">
+				<div class="col">
 					{{ form_start(page_form) }}
 					<div class="form-row">
 						<div class="form-group mb-0 mt-2 col">
