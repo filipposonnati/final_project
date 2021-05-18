@@ -26,15 +26,13 @@
 		</div>
 		<div class="row align-items-center mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 border-top border-dark">
 			<div class="col-6">
-				<div class="card shadow-sm">
-					<div class="card-body">
-						<blockquote class="blockquote mb-0">
-							<p>"Un sistema crittografico dovrebbe essere protetto anche se tutto ciò che riguarda il sistema, tranne la chiave, è di dominio pubblico".</p>
-							<footer class="blockquote-footer">Auguste Kerckhoffs
-							</footer>
-						</blockquote>
+				{% for page in math_pages %}
+					<div class="card rounded-lg my-2">
+						<div class="card-body">
+							<a class="text-dark  stretched-link" href="{{ path('wiki_page', {'id': page.id}) }}">{{ page.title }}</a>
+						</div>
 					</div>
-				</div>
+			{% endfor %}
 			</div>
 			<div class="col-6">
 				<h1 class="display-3">Impara tutta la matematica che c'è dietro la crittografia</h1>

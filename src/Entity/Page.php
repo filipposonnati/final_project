@@ -39,6 +39,11 @@ class Page
      */
     private $blocks;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="pages")
+     */
+    private $category;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -130,6 +135,18 @@ class Page
                 $block->setPage(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

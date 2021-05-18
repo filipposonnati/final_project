@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Page;
 use App\Entity\Block;
 use App\Entity\Comment;
+use App\Entity\Category;
 use App\Form\CommentType;
 use App\Form\TitlePageType;
 use App\Form\TextPageType;
@@ -33,6 +34,8 @@ class MainController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
 
         $pages = $this->getDoctrine()->getRepository(Page::class)->findAll();
+        $math_category = $this->getDoctrine()->getRepository(Category::class)->findOneBy(['name' => 'Matematica']);
+        $math_pages = $math_category->getPages();
 
         ///////////////////
         // page creation //
@@ -53,6 +56,7 @@ class MainController extends AbstractController
 
         return $this->render('main/main.html.twig', [
             'pages' => $pages,
+            'math_pages' => $math_pages,
             'page_form' => $page_form->createView()
         ]);
     }
