@@ -35,6 +35,19 @@ class MainController extends AbstractController
 
         $pages = $this->getDoctrine()->getRepository(Page::class)->findAll();
 
+        /////////////////////////
+        // selezione categorie //
+        /////////////////////////
+        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
+        $categories_form = array();
+        foreach ($categories as $category) {
+            $categories_form[$category->getName()] = $category;
+        }
+        $categories_form['Nessuna categoria'] = null;
+
+        /////////////////////////////////
+        // selezione pagine specifiche //
+        /////////////////////////////////
         $math_category = $this->getDoctrine()->getRepository(Category::class)->findOneBy(['name' => 'Matematica']);
         $math_pages = $math_category->getPages();
 
@@ -45,11 +58,12 @@ class MainController extends AbstractController
         // page creation //
         ///////////////////
         $page = new Page();
-        $page_form = $this->createForm(PageType::class, $page);
+        $page_form = $this->createForm(PageType::class, $page, [
+            'categories' => $categories_form
+        ]);
         $page_form->handleRequest($request);
 
         if ($page_form->isSubmitted() && $page_form->isValid()) {
-            $page->setIntroduction('');
             $entityManager->persist($page);
             $entityManager->flush();
 
