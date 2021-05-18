@@ -22,7 +22,7 @@ class PageType extends AbstractType
                 ]
             ])
             ->add('introduction', TextareaType::class, [
-                'required' => true,
+                'required' => false,
                 'attr' => [
                     'placeholder' => 'Inserisci l\'introduzione'
                 ]

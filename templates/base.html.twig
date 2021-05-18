@@ -18,6 +18,9 @@
 				<h5 class="my-0 mr-md-auto font-weight-normal">The Cryptography's Wiki</h5>
 
 				<nav class="my-2 my-md-0 mr-md-3">
+					{% if (app.request.pathinfo == '/') and is_granted('ROLE_ADMIN')%}
+						<a class="p-2 text-dark" href="{{ path('wiki_page_create') }}">Create page</a>
+					{% endif %}
 					{% if app.request.pathinfo != '/' %}
 						<a class="p-2 text-dark" href="{{ path('wiki_home') }}">Home</a>
 					{% endif %}
