@@ -4,38 +4,44 @@
 	<div class="container">
 		<div class="row mx-lg-3 mx-md-2 mx-sm-1 mt-5">
 			<div class="col">
-				<h1 class="display-1"><strong>Benvenuto nella Wiki</strong></h1>
+				<h1 class="display-1">
+					<strong>Benvenuto nella Wiki</strong>
+				</h1>
 				<p class="lead">Qui può trovare tutto quello che c'è da sapere sulla crittografia</p>
 			</div>
 		</div>
 		<div class="row align-items-center mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 border-top border-dark">
-			<div class="col-6">
+			<div class="col-lg-6">
 				<h1 class="display-2">Scopri i principali algoritmi di crittografia</h1>
 			</div>
-			<div class="col-6">
-				<div class="card shadow-sm">
-					<div class="card-body">
-						<blockquote class="blockquote mb-0">
-							<p>"Un sistema crittografico dovrebbe essere protetto anche se tutto ciò che riguarda il sistema, tranne la chiave, è di dominio pubblico".</p>
-							<footer class="blockquote-footer">Auguste Kerckhoffs
-							</footer>
-						</blockquote>
+			<div class="col-lg-6">
+				{% for page in cryptography_pages %}
+					<div class="d-flex flex-column border-bottom mb-3 pb-3">
+						<div>
+							<a class="text-dark h1" href="{{ path('wiki_page', {'id': page.id}) }}">{{ page.title }}</a>
+						</div>
+						<div>
+							<p class="lead">{{ page.introduction }}</p>
+						</div>
 					</div>
-				</div>
+				{% endfor %}
 			</div>
 		</div>
 		<div class="row align-items-center mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 border-top border-dark">
-			<div class="col-6">
+			<div class="col-lg-6">
 				{% for page in math_pages %}
-					<div class="card rounded-lg my-2">
-						<div class="card-body">
-							<a class="text-dark  stretched-link" href="{{ path('wiki_page', {'id': page.id}) }}">{{ page.title }}</a>
+					<div class="d-flex flex-column border-bottom mb-3 pb-3">
+						<div>
+							<a class="text-dark h1" href="{{ path('wiki_page', {'id': page.id}) }}">{{ page.title }}</a>
+						</div>
+						<div>
+							<p class="lead">{{ page.introduction }}</p>
 						</div>
 					</div>
-			{% endfor %}
+				{% endfor %}
 			</div>
-			<div class="col-6">
-				<h1 class="display-3">Impara tutta la matematica che c'è dietro la crittografia</h1>
+			<div class="col-lg-6">
+				<h1 class="display-2">Impara la matematica che c'è dietro</h1>
 			</div>
 		</div>
 		<div class="row mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 border-top border-dark">
@@ -48,6 +54,19 @@
 					</div>
 				</div>
 			{% endfor %}
+		</div>
+		<div class="row mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 border-top border-dark">
+			<div class="col">
+				<div class="card shadow-sm">
+					<div class="card-body">
+						<blockquote class="blockquote mb-0">
+							<p>"Un sistema crittografico dovrebbe essere protetto anche se tutto ciò che riguarda il sistema, tranne la chiave, è di dominio pubblico".</p>
+							<footer class="blockquote-footer">Auguste Kerckhoffs
+							</footer>
+						</blockquote>
+					</div>
+				</div>
+			</div>
 		</div>
 		{% if is_granted('ROLE_ADMIN') %}
 			<div class="row mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 mb-5 border-top border-dark">

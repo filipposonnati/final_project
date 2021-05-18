@@ -34,8 +34,12 @@ class MainController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
 
         $pages = $this->getDoctrine()->getRepository(Page::class)->findAll();
+
         $math_category = $this->getDoctrine()->getRepository(Category::class)->findOneBy(['name' => 'Matematica']);
         $math_pages = $math_category->getPages();
+
+        $cryptography_category = $this->getDoctrine()->getRepository(Category::class)->findOneBy(['name' => 'Crittografia']);
+        $cryptography_pages = $cryptography_category->getPages();
 
         ///////////////////
         // page creation //
@@ -57,6 +61,7 @@ class MainController extends AbstractController
         return $this->render('main/main.html.twig', [
             'pages' => $pages,
             'math_pages' => $math_pages,
+            'cryptography_pages' => $cryptography_pages,
             'page_form' => $page_form->createView()
         ]);
     }
