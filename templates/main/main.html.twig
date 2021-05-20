@@ -2,6 +2,10 @@
 
 {% block body %}
 	<div class="container">
+
+		<!-------------------------
+			BLOCCO INIZIALE
+		-------------------------->
 		<div class="row mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 mb-5 pb-5">
 			<div class="col">
 				<h1 class="display-1">
@@ -12,6 +16,10 @@
 				</h1>
 			</div>
 		</div>
+
+		<!-------------------------
+			BLOCCO CRITTOGRAFIA
+		-------------------------->
 		<div class="row align-items-center mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 border-top border-dark">
 			<div class="col-lg-6">
 				<h1 class="display-2">Scopri i principali algoritmi di crittografia</h1>
@@ -40,6 +48,10 @@
 				{% endfor %}
 			</div>
 		</div>
+
+		<!-----------------------
+			BLOCCO MATEMATICA
+		------------------------>
 		<div class="row align-items-center mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 border-top border-dark">
 			<div class="col-lg-6">
 				{% for page in math_pages %}
@@ -68,6 +80,10 @@
 				<h1 class="display-2">Impara la matematica che c'è dietro</h1>
 			</div>
 		</div>
+
+		<!-----------------------
+			BLOCCO ALAN TURING
+		------------------------>
 		<div class="row align-items-center mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 border-top border-dark">
 			<div class="col-lg-6">
 				<img src="{{ asset("/image/Alan Turing.jpg") }}" alt="Immagine non presente" class="rounded mx-auto d-block"/>
@@ -76,9 +92,10 @@
 				<h1 class="display-2">Alan Turing</h1>
 			</div>
 		</div>
-		<!-- 
+
+		<!------------------------------
 			BLOCCO ELENCO PAGINE WIKI
-		-->
+		-------------------------------->
 		<div class="row mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 border-top border-dark">
 			<div class="col-12 mb-3">
 				<h1>
@@ -95,10 +112,10 @@
 				</div>
 			{% endfor %}
 		</div>
-		
-		<!--
+
+		<!---------------------
 			BLOCCO CITAZIONE
-		-->
+		---------------------->
 		<div class="row mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 border-top border-dark">
 			<div class="col">
 				<div class="card shadow-sm">
