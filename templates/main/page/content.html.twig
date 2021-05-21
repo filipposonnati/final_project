@@ -1,11 +1,10 @@
 <div class="container">
 	<div class="card shadow">
 		<div class="card-body">
-			<div class="container m-0 p-0">
+			<div
+				class="container m-0 p-0">
 
-				<!------------------------------------
-					BLOCCO TITOLO E IL SUO EDITING
-				------------------------------------->
+				{# BLOCCO TITOLO E IL SUO EDITING #}
 				<div class="row align-items-center">
 					<div class="col">
 						<h1 class="card-title text-center display-4">{{ page.title }}</h1>
@@ -21,9 +20,7 @@
 					{% endif %}
 				</div>
 
-				<!-----------------------------------
-					BLOCCO INTRODUZIONE E INDICE
-				------------------------------------>
+				{# BLOCCO INTRODUZIONE E INDICE #}
 				<div class="row justify-content-between">
 					{% if not page.introduction is null %}
 						<div class="col-md-9">
@@ -48,9 +45,7 @@
 					{% endif %}
 				</div>
 
-				<!-------------------------
-					BLOCCHI DELLA WIKI
-				-------------------------->
+				{# BLOCCHI DELLA WIKI #}
 				{% for block in blocks %}
 					<div class="row align-items-center mt-1">
 						{% if block.type == 'title' %}
@@ -78,9 +73,7 @@
 							</div>
 						{% endif %}
 
-						<!-------------------------------------------------
-							PARTE MODIFICA BLOCCHI RISERVATA ALL'ADMIN
-						-------------------------------------------------->
+						{# PARTE MODIFICA BLOCCHI RISERVATA ALL'ADMIN #}
 						{% if is_granted('ROLE_ADMIN') %}
 							<div class="col-auto text-right">
 								<span class="badge badge-pill badge-primary pr-2">{{ block.position }}</span>
@@ -118,9 +111,7 @@
 				{% endfor %}
 			</div>
 
-			<!-------------------------------------------------
-				PARTE CREAZIONE BLOCCHI RISERVATA ALL'ADMIN
-			-------------------------------------------------->
+			{# PARTE CREAZIONE BLOCCHI RISERVATA ALL'ADMIN #}
 			{% if is_granted('ROLE_ADMIN') %}
 				<p class="text-right mb-0">
 					<a class="btn btn-primary btn-sm" data-toggle="collapse" href="#title" role="button">

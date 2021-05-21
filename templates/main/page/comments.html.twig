@@ -3,12 +3,15 @@
 		<div class="card shadow">
 			<div class="card-body">
 				<h4 class="border-bottom pb-2 mb-0">Commenti</h4>
+
+				{# LISTA COMMENTI #}
 				{% for comment in comments %}
 					<div class="media border-bottom pt-3 pb-1">
 						<p class="media-body pb-1 mb-0 small">
 							<strong class="d-block text-gray-dark">@{{ comment.user.username }}</strong>
 							{{ comment.content }}
 							<small class="d-block text-muted text-right">{{ comment.insertDatetime }}</small>
+
 							{% if is_granted('ROLE_ADMIN') or (comment.user == app.user) %}
 								<a class="btn btn-primary btn-sm text-right" href="{{ path('wiki_comment_delete', {'id_comment': comment.id}) }}" role="button">
 									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-x mt-n2 mx-n1 mb-n1" viewbox="0 0 16 16">
@@ -19,6 +22,8 @@
 						</p>
 					</div>
 				{% endfor %}
+
+				{# FORM PER SCRIVERE COMMENTI #}
 				{% if is_granted('ROLE_USER') %}
 					<div class="form-group pt-3 mb-0">
 						{{ form_start(comment_form) }}

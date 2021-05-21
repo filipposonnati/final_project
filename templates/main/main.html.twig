@@ -1,11 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<div class="container">
+	<div
+		class="container">
 
-		<!-------------------------
-			BLOCCO INIZIALE
-		-------------------------->
+		{# BLOCCO INIZIALE #}
 		<div class="row mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 mb-5 pb-5">
 			<div class="col">
 				<h1 class="display-1">
@@ -17,9 +16,7 @@
 			</div>
 		</div>
 
-		<!-------------------------
-			BLOCCO CRITTOGRAFIA
-		-------------------------->
+		{# BLOCCO CRITTOGRAFIA #}
 		<div class="row align-items-center mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 border-top border-dark">
 			<div class="col-lg-6">
 				<h1 class="display-2">Scopri i principali algoritmi di crittografia</h1>
@@ -49,9 +46,22 @@
 			</div>
 		</div>
 
-		<!-----------------------
-			BLOCCO MATEMATICA
-		------------------------>
+		{# BLOCCO CITAZIONE #}
+		<div class="row mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 border-top border-dark">
+			<div class="col">
+				<div class="card shadow-sm">
+					<div class="card-body">
+						<blockquote class="blockquote mb-0">
+							<p>"Un sistema crittografico dovrebbe essere protetto anche se tutto ciò che riguarda il sistema, tranne la chiave, è di dominio pubblico".</p>
+							<footer class="blockquote-footer">Auguste Kerckhoffs
+							</footer>
+						</blockquote>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		{# BLOCCO MATEMATICA #}
 		<div class="row align-items-center mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 border-top border-dark">
 			<div class="col-lg-6">
 				{% for page in math_pages %}
@@ -81,9 +91,7 @@
 			</div>
 		</div>
 
-		<!-----------------------
-			BLOCCO ALAN TURING
-		------------------------>
+		{# BLOCCO ALAN TURING #}
 		<div class="row align-items-center mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 border-top border-dark">
 			<div class="col-lg-6">
 				<img src="{{ asset("/image/Alan Turing.jpg") }}" alt="Immagine non presente" class="rounded mx-auto d-block"/>
@@ -93,9 +101,7 @@
 			</div>
 		</div>
 
-		<!------------------------------
-			BLOCCO ELENCO PAGINE WIKI
-		-------------------------------->
+		{# BLOCCO ELENCO PAGINE WIKI #}
 		<div class="row mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 border-top border-dark">
 			<div class="col-12 mb-3">
 				<h1>
@@ -113,21 +119,5 @@
 			{% endfor %}
 		</div>
 
-		<!---------------------
-			BLOCCO CITAZIONE
-		---------------------->
-		<div class="row mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 border-top border-dark">
-			<div class="col">
-				<div class="card shadow-sm">
-					<div class="card-body">
-						<blockquote class="blockquote mb-0">
-							<p>"Un sistema crittografico dovrebbe essere protetto anche se tutto ciò che riguarda il sistema, tranne la chiave, è di dominio pubblico".</p>
-							<footer class="blockquote-footer">Auguste Kerckhoffs
-							</footer>
-						</blockquote>
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>
 {% endblock %}
