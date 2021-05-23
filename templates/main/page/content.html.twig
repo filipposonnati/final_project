@@ -62,7 +62,7 @@
 							</div>
 						{% endif %}
 						{% if block.type == 'image' %}
-							<img src="{{ asset("/image/" ~ block.content) }}" height="160" alt="Immagine non presente" class="rounded mx-auto d-block"/>
+							<img src="{{ asset("/image/" ~ block.content) }}" width="280" alt="Immagine non presente" class="rounded mx-auto d-block"/>
 						{% endif %}
 						{% if block.type == 'code' %}
 							<div class="col">

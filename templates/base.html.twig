@@ -41,76 +41,7 @@
 				</nav>
 			</div>
 
-			{% block body %}{% endblock %}
-
-			{# BLOCCO FOOTER #}
-			<div class="container-sm">
-				<footer class="pt-4 mt-4 border-top">
-					<div class="row">
-						<div class="col-6 col-md">
-							<img class="mb-2" src="{{ asset('icon/dice-4-fill.svg') }}" alt="Not found" width="24" height="24">
-							<small class="d-block mb-3 text-muted">&copy; 2021</small>
-						</div>
-						<div class="col-6 col-md">
-							<h5>Features</h5>
-							<ul class="list-unstyled text-small">
-								<li>
-									<a class="text-muted" href="#">Cool stuff</a>
-								</li>
-								<li>
-									<a class="text-muted" href="#">Random feature</a>
-								</li>
-								<li>
-									<a class="text-muted" href="#">Team feature</a>
-								</li>
-								<li>
-									<a class="text-muted" href="#">Stuff for developers</a>
-								</li>
-								<li>
-									<a class="text-muted" href="#">Another one</a>
-								</li>
-								<li>
-									<a class="text-muted" href="#">Last time</a>
-								</li>
-							</ul>
-						</div>
-						<div class="col-6 col-md">
-							<h5>Resources</h5>
-							<ul class="list-unstyled text-small">
-								<li>
-									<a class="text-muted" href="#">Resource</a>
-								</li>
-								<li>
-									<a class="text-muted" href="#">Resource name</a>
-								</li>
-								<li>
-									<a class="text-muted" href="#">Another resource</a>
-								</li>
-								<li>
-									<a class="text-muted" href="#">Final resource</a>
-								</li>
-							</ul>
-						</div>
-						<div class="col-6 col-md">
-							<h5>About</h5>
-							<ul class="list-unstyled text-small">
-								<li>
-									<a class="text-muted" href="#">Team</a>
-								</li>
-								<li>
-									<a class="text-muted" href="#">Locations</a>
-								</li>
-								<li>
-									<a class="text-muted" href="#">Privacy</a>
-								</li>
-								<li>
-									<a class="text-muted" href="#">Terms</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</footer>
-			</div>
+			<div class="m-0 p-0 mb-5">{% block body %}{% endblock %}</div>
 
 			<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 			<script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
