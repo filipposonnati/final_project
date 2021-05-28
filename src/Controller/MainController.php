@@ -19,7 +19,7 @@ class MainController extends AbstractController
     /**
      * @Route("", name="home")
      */
-    public function main(Request $request): Response
+    public function main(): Response
     {
         $pages = $this->getDoctrine()->getRepository(Page::class)->findAll();
 
@@ -32,10 +32,13 @@ class MainController extends AbstractController
         $cryptography_category = $this->getDoctrine()->getRepository(Category::class)->findOneBy(['name' => 'Crittografia']);
         $cryptography_pages = $cryptography_category->getPages();
 
+        $turing_page = $this->getDoctrine()->getRepository(Page::class)->findOneBy(['title' => 'Alan Turing']);
+
         return $this->render('main/main.html.twig', [
             'pages' => $pages,
             'math_pages' => $math_pages,
-            'cryptography_pages' => $cryptography_pages
+            'cryptography_pages' => $cryptography_pages,
+            'turing_page' => $turing_page
         ]);
     }
 }
