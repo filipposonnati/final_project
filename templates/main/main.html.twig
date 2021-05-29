@@ -1,124 +1,123 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<div
-		class="container">
+  <div class="container">
 
-		{# BLOCCO INIZIALE #}
-		<div class="row mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 mb-5 pb-5">
-			<div class="col">
-				<h1 class="display-1">
-					<strong>Benvenuto nella Wiki</strong>
-				</h1>
-				<h1 class="display-4 mt-5">
-					Qui può trovare tutto quello che c'è da sapere sulla crittografia
-				</h1>
-			</div>
-		</div>
+    {# BLOCCO INIZIALE #}
+    <div class="row mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 mb-5 pb-5">
+      <div class="col">
+        <h1 class="display-1">
+          <strong>Benvenuto nella Wiki</strong>
+        </h1>
+        <h1 class="display-4 mt-5">
+          Qui può trovare tutto quello che c'è da sapere sulla crittografia
+        </h1>
+      </div>
+    </div>
 
-		{# BLOCCO CRITTOGRAFIA #}
-		<div class="row align-items-center mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 border-top border-dark">
-			<div class="col-lg-6">
-				<h1 class="display-2">Scopri i principali algoritmi di crittografia</h1>
-			</div>
-			<div class="col-lg-6">
-				{% for page in cryptography_pages %}
-					{% if page.id == cryptography_pages|last.id %}
-						<div class="d-flex flex-column pb-3 pt-3">
-							<div>
-								<a class="text-dark h1" href="{{ path('wiki_page', {'id': page.id}) }}">{{ page.title }}</a>
-							</div>
-							<div>
-								<p class="lead">{{ page.introduction }}</p>
-							</div>
-						</div>
-					{% else %}
-						<div class="d-flex flex-column border-bottom pb-3 pt-3">
-							<div>
-								<a class="text-dark h1" href="{{ path('wiki_page', {'id': page.id}) }}">{{ page.title }}</a>
-							</div>
-							<div>
-								<p class="lead">{{ page.introduction }}</p>
-							</div>
-						</div>
-					{% endif %}
-				{% endfor %}
-			</div>
-		</div>
+    {# BLOCCO CRITTOGRAFIA #}
+    <div class="row align-items-center mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 border-top border-dark">
+      <div class="col-lg-6">
+        <h1 class="display-2">Scopri i principali algoritmi di crittografia</h1>
+      </div>
+      <div class="col-lg-6">
+        {% for page in cryptography_pages %}
+          {% if page.id == cryptography_pages | last.id %}
+            <div class="d-flex flex-column pb-3 pt-3">
+              <div>
+                <a class="text-dark h1" href="{{ path('wiki_page', {'id': page.id}) }}">{{ page.title }}</a>
+              </div>
+              <div>
+                <p class="lead">{{ page.introduction|striptags|length > 160 ? page.introduction|striptags|slice(0, 160) ~ '...' : page.introduction|striptags }}</p>
+              </div>
+            </div>
+          {% else %}
+            <div class="d-flex flex-column border-bottom pb-3 pt-3">
+              <div>
+                <a class="text-dark h1" href="{{ path('wiki_page', {'id': page.id}) }}">{{ page.title }}</a>
+              </div>
+              <div>
+                <p class="lead">{{ page.introduction|striptags|length > 160 ? page.introduction|striptags|slice(0, 160) ~ '...' : page.introduction|striptags }}</p>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
 
-		{# BLOCCO CITAZIONE #}
-		<div class="row mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 border-top border-dark">
-			<div class="col">
-				<div class="card shadow-sm">
-					<div class="card-body">
-						<blockquote class="blockquote mb-0">
-							<p>"Un sistema crittografico dovrebbe essere protetto anche se tutto ciò che riguarda il sistema, tranne la chiave, è di dominio pubblico".</p>
-							<footer class="blockquote-footer">Auguste Kerckhoffs
-							</footer>
-						</blockquote>
-					</div>
-				</div>
-			</div>
-		</div>
+    {# BLOCCO CITAZIONE #}
+    <div class="row mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 border-top border-dark">
+      <div class="col">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <p>"Un sistema crittografico dovrebbe essere protetto anche se tutto ciò che riguarda il sistema, tranne la chiave, è di dominio pubblico".</p>
+              <footer class="blockquote-footer">Auguste Kerckhoffs
+              </footer>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </div>
 
-		{# BLOCCO ALAN TURING #}
-		<div class="row align-items-center mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 border-top border-dark">
-			<div class="col-lg-6">
-				<img src="{{ asset("/image/Alan Turing.jpg") }}" alt="Immagine non presente" class="rounded mx-auto d-block"/>
-			</div>
-			<div class="col-lg-6">
-				<a class="text-dark h1 display-2" href="{{ path('wiki_page', {'id': turing_page.id}) }}">{{ turing_page.title }}</a>
-				<p class="lead">{{ turing_page.introduction }}</p>
-			</div>
-		</div>
+    {# BLOCCO ALAN TURING #}
+    <div class="row align-items-center mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 border-top border-dark">
+      <div class="col-lg-6">
+        <img src="{{ asset('/image/Alan turing.jpg') }}" alt="Immagine non presente" class="rounded mx-auto d-block"/>
+      </div>
+      <div class="col-lg-6">
+        <a class="text-dark h1 display-2" href="{{ path('wiki_page', {'id': turing_page.id}) }}">{{ turing_page.title }}</a>
+        <p class="lead">{{ turing_page.introduction }}</p>
+      </div>
+    </div>
 
-		{# BLOCCO MATEMATICA #}
-		<div class="row align-items-center mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 border-top border-dark">
-			<div class="col-lg-6">
-				<h1 class="display-2">Impara la matematica che c'è dietro</h1>
-			</div>
-			<div class="col-lg-6">
-				{% for page in math_pages %}
-					{% if page.id == math_pages|last.id %}
-						<div class="d-flex flex-column pb-3 pt-3">
-							<div>
-								<a class="text-dark h1" href="{{ path('wiki_page', {'id': page.id}) }}">{{ page.title }}</a>
-							</div>
-							<div>
-								<p class="lead">{{ page.introduction }}</p>
-							</div>
-						</div>
-					{% else %}
-						<div class="d-flex flex-column border-bottom pb-3 pt-3">
-							<div>
-								<a class="text-dark h1" href="{{ path('wiki_page', {'id': page.id}) }}">{{ page.title }}</a>
-							</div>
-							<div>
-								<p class="lead">{{ page.introduction }}</p>
-							</div>
-						</div>
-					{% endif %}
-				{% endfor %}
-			</div>
-		</div>
+    {# BLOCCO MATEMATICA #}
+    <div class="row align-items-center mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 border-top border-dark">
+      <div class="col-lg-6">
+        <h1 class="display-2">Impara la matematica che c'è dietro</h1>
+      </div>
+      <div class="col-lg-6">
+        {% for page in math_pages %}
+          {% if page.id == math_pages | last.id %}
+            <div class="d-flex flex-column pb-3 pt-3">
+              <div>
+                <a class="text-dark h1" href="{{ path('wiki_page', {'id': page.id}) }}">{{ page.title }}</a>
+              </div>
+              <div>
+                <p class="lead">{{ page.introduction|striptags|length > 160 ? page.introduction|striptags|slice(0, 160) ~ '...' : page.introduction|striptags }}</p>
+              </div>
+            </div>
+          {% else %}
+            <div class="d-flex flex-column border-bottom pb-3 pt-3">
+              <div>
+                <a class="text-dark h1" href="{{ path('wiki_page', {'id': page.id}) }}">{{ page.title }}</a>
+              </div>
+              <div>
+                <p class="lead">{{ page.introduction|striptags|length > 160 ? page.introduction|striptags|slice(0, 160) ~ '...' : page.introduction|striptags }}</p>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
 
-		{# BLOCCO ELENCO PAGINE WIKI #}
-		<div class="row mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 border-top border-dark">
-			<div class="col-12 mb-3">
-				<h1>
-					Ecco tutte le pagine della Wiki
-				</h1>
-			</div>
-			{% for page in pages %}
-				<div class="col-lg-3 col-md-4 col-sm-6">
-					<div class="card rounded-lg my-2">
-						<div class="card-body">
-							<a class="text-dark  stretched-link" href="{{ path('wiki_page', {'id': page.id}) }}">{{ page.title }}</a>
-						</div>
-					</div>
-				</div>
-			{% endfor %}
-		</div>
+    {# BLOCCO ELENCO PAGINE WIKI #}
+    <div class="row mx-lg-3 mx-md-2 mx-sm-1 mt-5 pt-5 border-top border-dark">
+      <div class="col-12 mb-3">
+        <h1>
+          Ecco tutte le pagine della Wiki
+        </h1>
+      </div>
+      {% for page in pages %}
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="card rounded-lg my-2">
+            <div class="card-body">
+              <a class="text-dark  stretched-link" href="{{ path('wiki_page', {'id': page.id}) }}">{{ page.title }}</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
 
-	</div>
+  </div>
 {% endblock %}
