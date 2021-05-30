@@ -1,10 +1,19 @@
 {% extends 'base.html.twig' %}
 
+{% block style %}
+  <style>
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+{% endblock %}
+
 {% block body %}
-	{% include 'main/page/content.html.twig' %}
-	{% include 'main/page/comments.html.twig' %}
+  {% include 'main/page/content.html.twig' %}
+  {% include 'main/page/comments.html.twig' %}
 {% endblock %}
 
 {% block script %}
-	<script type="text/javascript" src="{{ asset('js/tab.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/tab.js') }}"></script>
 {% endblock %}
