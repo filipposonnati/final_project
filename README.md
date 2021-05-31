@@ -19,11 +19,11 @@
 
   Si devono modificare `user`, `password`, `host` e `port` con le tue credenziali MySQL.
 
-- Genera il database e le tabelle usando [Doctrine](https://www.doctrine-project.org/):
+- Genera il database e le tabelle usando [Doctrine](https://www.doctrine-project.org/) oppure importare il database da uno script appositamente fornito:
 
   ```sh
   php bin/console doctrine:database:create
-  php bin/console doctrine:schema:create
+  php bin/console doctrine:schema:update
   ```
 
 - Adesso puoi far partire la web app con il comando:
